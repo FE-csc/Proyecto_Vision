@@ -81,6 +81,8 @@ $stmt->close();
 
 $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
+// insert Tabla users
+
 $insert = $mysqli->prepare("INSERT INTO users (first_name, last_name, age, phone, email, password_hash, ID_ROLE) VALUES (?, ?, ?, ?, ?, ?,?)");
 if (!$insert) {
     http_response_code(500);

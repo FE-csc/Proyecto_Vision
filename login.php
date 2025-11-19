@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'db.php';
-// Asegúrate de que el archivo db.php no imprima nada
 header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -9,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password']);
 
     // Preparar consulta
-    $stmt = $mysqli->prepare("SELECT id, first_name, last_name, email, password_hash, ID_Role FROM users WHERE email = ?");
+    $stmt = $mysqli->prepare("SELECT id,email, password_hash, ID_Role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             //VARIABLES DE SESIÓN
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_nombre'] = $user['first_name'] . " " . $user['last_name'];
             $_SESSION['user_email'] = $user['email'];
             $_SESSION['user_role'] = $user['ID_Role'];
             
@@ -31,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 "success" => true,
                 "usuario" => [
                     "id" => $user['id'],
-                    "nombre" => $user['first_name'] . " " . $user['last_name'],
                     "email" => $user['email'],
                     "Rol" => $user['ID_Role'] 
                 ]
