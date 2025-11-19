@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $usuario_para_js = [
     "id" => $_SESSION['user_id'] ?? 0,
-    "nombre" => $_SESSION['user_nombre'] ?? 'Usuario',
     "email" => $_SESSION['user_email'] ?? '',
     "role" => $_SESSION['user_role'] ?? 0
 ];
@@ -51,11 +50,10 @@ $usuario_para_js = [
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
     <script>
-        // Recibimos los datos de PHP
+        
         const usuarioSesion = <?php echo json_encode($usuario_para_js); ?>;
 
         window.Auth = {
-            // Función para obtener datos del usuario (usada por tus scripts existentes)
             getUser: function() {
                 const nombreCompleto = usuarioSesion.nombre || '';
                 const partesNombre = nombreCompleto.split(' ');
@@ -69,18 +67,10 @@ $usuario_para_js = [
             
             // Función para cerrar sesión
             logout: function(options) {
-                // Redirige al script PHP que destruye la sesión
                 window.location.href = 'logout.php';
             },
 
-            // Simulación de actualización (aquí deberías conectar con otro PHP mediante fetch)
-            updateUser: function(data) {
-                console.log('Solicitud de actualización:', data);
-                // TODO: Implementar fetch a 'actualizar_perfil.php'
-                
-                // Actualizamos visualmente el objeto local temporalmente
-                if(data.email) usuarioSesion.email = data.email;
-            }
+            
         };
     </script>
 </head>
@@ -124,7 +114,7 @@ $usuario_para_js = [
                 <div id="perfilAvatar" class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYXKK9-gR1zZ7av7idsVNcs5cGFmHKUC73uZ9p1SSe4_6M80Tvct9QFixH_FeguMfeWMPFeL3wXUf2qrqVh37say64QsR0uiqBJHIPz0nUJ6XurcZkZbhoTrb5FCQuCQr4xJOXHYpswluSY8n6ClWqZya8qWy4JcPhsj93zV12ovYKmymqKNBd5iBjyg_PSENrLm7DtNbf5S4Y5830tu7xQJZKo1xJAkPAkR4tkCAG-C8cVKENR1fyUVS--ZDQFeUCKX3WKcr1zWs");'></div>
                 <div class="flex flex-col">
                     <h1 id="perfilName" class="text-gray-900 dark:text-white font-bold text-lg">
-                        <?php echo htmlspecialchars($_SESSION['user_nombre']); ?>
+                        falta la funcion
                     </h1>
                     <p id="perfilRole" class="text-gray-500 dark:text-gray-400 text-sm">Paciente</p>
                     <p id="perfilEmail" class="text-sm text-gray-500 dark:text-gray-400">
