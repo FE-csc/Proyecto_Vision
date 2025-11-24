@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
