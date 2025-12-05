@@ -107,7 +107,7 @@ if (!$idPsicologo) {
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Index.php"><button>Pagina Principal</button></a>
           <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Nosotros.php"><button>Sobre Nosotros</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="mensaje.html"><button>Contacto</button></a>
+          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="mensaje.php"><button>Contacto</button></a>
         </nav>
       </div>
     </header>

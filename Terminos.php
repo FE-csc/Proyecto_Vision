@@ -77,7 +77,7 @@ $Loggeado = isset($_SESSION['user_id']);
                         <a class="text-sm font-medium hover:text-primary transition-colors" href="Nosotros.php">Sobre
                             nosotros</a>
                         <a class="text-sm font-medium hover:text-primary transition-colors"
-                            href="mensaje.html">Contacto</a>
+                            href="mensaje.php">Contacto</a>
                     </nav>
                     <?php if (!$Loggeado): ?>
                     <a href="login.html">

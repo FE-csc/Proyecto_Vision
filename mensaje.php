@@ -52,8 +52,8 @@ $Loggeado = isset($_SESSION['user_id']);
 
 <body class="bg-background-light dark:bg-background-dark font-display text-[#101c22] dark:text-[#f6f7f8]">
   <!--
-    mensaje.html - formulario de contacto
-    - Protegido por auth.js: si no estás autenticado se redirige a login.html con ?next=mensaje.html
+    mensaje.php - formulario de contacto
+    - Protegido por auth.js: si no estás autenticado se redirige a login.html con ?next=mensaje.php
     - El formulario (id="contactForm") valida en el cliente antes de "enviar".
     - La función showAlert muestra un mensaje temporal en el elemento #formAlert.
     - En producción deberías conectar el envío con un endpoint (fetch) para guardar/ enviar el mensaje.
@@ -89,7 +89,7 @@ $Loggeado = isset($_SESSION['user_id']);
             try {
               if (window.Auth && typeof window.Auth.isLoggedIn === 'function') {
                 if (!window.Auth.isLoggedIn()) {
-                  var next = 'mensaje.html';
+                  var next = 'mensaje.php';
                   location.href = 'login.html?next=' + encodeURIComponent(next);
                 }
               }

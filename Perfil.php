@@ -117,7 +117,7 @@ $jsData = [
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Index.php">Página principal</a>
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Servicios.php">Servicios</a>
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="Nosotros.php">Sobre nosotros</a>
-                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="mensaje.html">Contacto</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors" href="mensaje.php">Contacto</a>
                 </nav>
                 <div class="flex items-center">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"></div>
@@ -281,7 +281,7 @@ $jsData = [
                         </div>
                     </div>
                     <div class="mt-8 border-t pt-4 flex justify-between items-center">
-                        <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.html" class="text-primary">Contáctanos</a></div>
+                        <div class="text-sm text-gray-500">¿Necesitas ayuda? <a href="mensaje.php" class="text-primary">Contáctanos</a></div>
                         <button id="btnLogout" class="bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
                     </div>
                 </div>

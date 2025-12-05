@@ -71,7 +71,7 @@ $Loggeado = isset($_SESSION['user_id']);
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="mensaje.html"><button>Contacto</button></a>
+            href="mensaje.php"><button>Contacto</button></a>
         </nav>
         <div class="flex items-center gap-4">
           <?php if (!$Loggeado): ?>

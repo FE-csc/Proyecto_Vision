@@ -64,7 +64,7 @@ if ($result = $mysqli->query($query)) {
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="Nosotros.php"><button>Sobre Nosotros</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="mensaje.html"><button>Contactacto</button></a>
+            href="mensaje.php"><button>Contactacto</button></a>
         </nav>
         <div class="flex items-center gap-4">
           <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
