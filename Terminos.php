@@ -190,7 +190,7 @@ $Loggeado = isset($_SESSION['user_id']);
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
                         <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
-                            href="Politica.html">Política de privacidad</a>
+                            href="Politica.php">Política de privacidad</a>
                     </div>
                     <p class="text-sm text-gray-600 dark:text-gray-400">© 2025 Vision. Todos los derechos reservados.
                     </p>

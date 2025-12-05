@@ -251,7 +251,7 @@ $Loggeado = isset($_SESSION['user_id']);
                             <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Vision</span>
                         </div>
                         <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
-                            <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.html"><button>Politica de privacidad</button></a>
+                            <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.php"><button>Politica de privacidad</button></a>
 
                             <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Terminos.php"><button>Terminos y
                                     condiciones</button></a>

@@ -1,3 +1,8 @@
+<?php
+session_start();
+$Loggeado = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,12 +41,13 @@
 </head>
 
 <!--
-    Politica.html - Política de privacidad
+    Politica.php - Política de privacidad
     - Página informativa que explica cómo se manejan datos. auth.js se incluye al final
         para habilitar UX relacionado con sesión (avatar, login/logout).
 -->
+
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
-        <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col">
         <header
             class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,11 +80,21 @@
                             href="mensaje.php">Contacto</a>
                     </nav>
                     <div class="flex items-center">
-                        <a href="login.html?redirect=reserva.php"
-                            class="inline-block bg-primary text-white font-bold text-sm px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors">Reservar cita</a>
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-4"
-                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCVwv-zS-uQ4jQkoGZ114abTXXqEX-c3xiMOh4s9_EPt3GoQHd2WOeJroq3oiNMJ5KbtQTAAOn3wilUGvp35adPvzlib0BCn49l08Y2GYRjAgMMB33pGCdMy3aH7BkrVr0zOMB7JBdAMbPVcwVbPmszNA3ZAPvuVoXQl6KpwehiIbxoBrP88-Pn3ersPqFfletB5gpscpKA2UzFNq6fD5hl5rscKhRFMCGk0b_mTq6GuUVUy_7PJmi8Mrle6oVB8KXkA79J6SO6FbA");'>
-                        </div>
+                        <?php if (!$Loggeado): ?>
+                            <a href="login.html">
+                                <button
+                                    class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-white text-sm font-bold shadow-lg hover:bg-primary/90 transition-colors">
+                                    <span class="truncate">Inicio de Sesion</span>
+                                </button>
+                            </a>
+                        <?php else: ?>
+                            <a href="perfil.php">
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+                                    style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
+                                </div>
+                            </a>
+
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

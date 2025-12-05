@@ -167,7 +167,7 @@ $Loggeado = isset($_SESSION['user_id']);
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div class="flex gap-4">
-                <a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary" href="Politica.html">Política de
+                <a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary" href="Politica.php">Política de
                     privacidad</a>
                 <a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary" href="Terminos.php">Términos y
                     condiciones</a>

@@ -220,7 +220,7 @@ $Loggeado = isset($_SESSION['user_id']);
       <div class="container mx-auto px-6 py-8 text-center text-black/60 dark:text-white/60">
         <div class="flex justify-center gap-6 mb-4">
           <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
-            href="Politica.html"><button>Politica de privacidad</button></a>
+            href="Politica.php"><button>Politica de privacidad</button></a>
           <a class="text-sm hover:text-primary transition-colors" href="#">Terminos de servicio</a>
         </div>
         <p class="text-sm">© 2025 Vision. All rights reserved.</p>

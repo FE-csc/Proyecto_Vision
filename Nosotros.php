@@ -204,7 +204,7 @@ $Loggeado = isset($_SESSION['user_id']);
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
             <a class="text-sm text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
-              <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.html"><button>Politica de privacidad</button></a>
+              <a class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary" href="Politica.php"><button>Politica de privacidad</button></a>
             <a class="text-sm text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary"
               href="#">Terminos de servicio</a>
           </div>
