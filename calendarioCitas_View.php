@@ -11,11 +11,11 @@ session_start();
 require_once 'db.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.html?redirect=' . urldecode(basename($_SERVER['PHP_SELF'])));
-    exit;
+  header('Location: login.html?redirect=' . urldecode(basename($_SERVER['PHP_SELF'])));
+  exit;
 }
 
-$idUsuario = (int)$_SESSION['user_id'];
+$idUsuario = (int) $_SESSION['user_id'];
 $idPsicologo = null;
 
 $query = "SELECT ID_Psicologo FROM psicologos WHERE ID_Usuario = ?";
@@ -27,15 +27,21 @@ $stmt->fetch();
 $stmt->close();
 
 if (!$idPsicologo) {
-    die("No se encontró un psicólogo asociado a este usuario.");
+  die("No se encontró un psicólogo asociado a este usuario.");
 }
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
-  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link as="style"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"
+    onload="this.rel='stylesheet'" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -57,31 +63,34 @@ if (!$idPsicologo) {
   <!-- .js -->
   <script defer src="calendarioCitas.js"></script>
   <style>
-  /* Estilos personalizados para los botones de FullCalendar */
-  .fc .fc-button {
-    background-color: #13a4ec !important;
-    color: #fff !important;
-    font-weight: bold;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-  }
-  .fc .fc-button:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-  .fc .fc-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  .fc .fc-button:focus,
-  .fc .fc-button:active {
-    outline: none !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
+    /* Estilos personalizados para los botones de FullCalendar */
+    .fc .fc-button {
+      background-color: #13a4ec !important;
+      color: #fff !important;
+      font-weight: bold;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .fc .fc-button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .fc .fc-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .fc .fc-button:focus,
+    .fc .fc-button:active {
+      outline: none !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
   </style>
   <title>Calendario de Citas</title>
 </head>
@@ -89,42 +98,54 @@ if (!$idPsicologo) {
 <body class="bg-background-light dark:bg-background-dark font-display text-[#333] dark:text-[#ccc]">
   <div class="flex min-h-screen flex-col">
     <!-- Header -->
-    <header class="border-b border-primary/20 dark:border-primary/10">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center gap-4">
-          <a href="Index.php">
-            <button>
-              <div class="w-8 h-8 text-primary">
-                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z" fill="currentColor"></path>
-                </svg>
-              </div>
-            </button>
-          </a>
-          <h2 class="text-xl font-bold text-gray-800 dark:text-white">Vision</h2>
+    <header
+      class="bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+
+
+          <div class="flex items-center gap-3">
+
+            <a id="perfilBtn"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium cursor-pointer"
+              href="Doctor.php">
+              <span class="material-symbols-outlined">arrow_back_ios_new</span>
+            </a>
+
+
+            <div class="text-primary h-8 w-8">
+              <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                    fill="currentColor"></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <h1 class="text-xl font-bold text-slate-900 dark:text-white">Vision</h1>
+          </div>
+
         </div>
-        <nav class="hidden items-center gap-8 md:flex">
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Index.php"><button>Pagina Principal</button></a>
-          <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="Servicios.php"><button>Servicios</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="Nosotros.php"><button>Sobre Nosotros</button></a>
-          <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary" href="mensaje.php"><button>Contacto</button></a>
-        </nav>
       </div>
     </header>
-
     <!-- Main -->
     <main class="flex-1">
       <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div class="mb-8 text-center">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Calendario de Citas</h1>
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Calendario de Citas
+          </h1>
           <p class="mt-2 text-gray-600 dark:text-gray-400">Haz clic en una cita para ver sus detalles.</p>
         </div>
 
         <div class="rounded-xl border border-primary/20 bg-background-light dark:bg-background-dark p-4 sm:p-6 lg:p-8">
           <!-- Contenedor de FullCalendar -->
-          <div id="calendar"
-               data-doctor="<?php echo htmlspecialchars($idPsicologo, ENT_QUOTES, 'UTF-8'); ?>"
-               class="bg-white dark:bg-[#0f172a] rounded-lg p-2"></div>
+          <div id="calendar" data-doctor="<?php echo htmlspecialchars($idPsicologo, ENT_QUOTES, 'UTF-8'); ?>"
+            class="bg-white dark:bg-[#0f172a] rounded-lg p-2"></div>
         </div>
       </div>
     </main>
@@ -136,7 +157,8 @@ if (!$idPsicologo) {
     <div class="relative mx-auto mt-24 w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-[#0f172a]">
       <div class="flex items-center justify-between mb-3">
         <h2 class="text-xl font-bold text-gray-900 dark:text-white">Detalles de la Cita</h2>
-        <button id="closeModal" class="rounded-md px-3 py-1 text-sm font-semibold text-white bg-primary hover:opacity-90">Cerrar</button>
+        <button id="closeModal"
+          class="rounded-md px-3 py-1 text-sm font-semibold text-white bg-primary hover:opacity-90">Cerrar</button>
       </div>
       <div id="modal-content" class="space-y-2 text-sm text-gray-800 dark:text-gray-200">
         <!-- Se rellena dinámicamente desde calendarioCitas.js -->
@@ -144,12 +166,5 @@ if (!$idPsicologo) {
     </div>
   </div>
 </body>
+
 </html>
-
-
-
-
-
-
-
-

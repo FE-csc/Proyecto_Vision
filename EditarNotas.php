@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
@@ -40,7 +49,7 @@
 <main class="w-full max-w-7xl p-8">
 <div class="flex flex-col gap-8 max-w-4xl mx-auto">
 <div class="flex flex-col gap-2">
-<a class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors w-fit" href="VerNotas">
+<a class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors w-fit" href="VerNotas.php">
 <span class="material-symbols-outlined">arrow_back</span>
 <span class="text-sm font-medium">Regresar a Notas y Evolución</span>
 </a>
@@ -81,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   idNota = params.get('id');
   if (!idNota) {
     alert('No se indicó ID de nota');
-    window.location.href = 'VerNotas';
+    window.location.href = 'VerNotas.php';
     return;
   }
   cargarNota();
@@ -89,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnGuardar = document.querySelector('button[class*="bg-primary"]');
   const btnCancelar = document.querySelector('button[class*="bg-slate-200"]');
   btnGuardar.addEventListener('click', guardarCambios);
-  btnCancelar.addEventListener('click', () => { if (confirm('Cancelar cambios?')) window.location.href = 'VerNotas'; });
+  btnCancelar.addEventListener('click', () => { if (confirm('Cancelar cambios?')) window.location.href = 'VerNotas.php'; });
 });
 
 async function cargarNota() {
@@ -117,7 +126,7 @@ async function cargarNota() {
       }
     } else {
       alert('Error: ' + (j.message||''));
-      window.location.href = 'VerNotas';
+      window.location.href = 'VerNotas.php';
     }
   } catch (err) { console.error(err); alert('Error de conexión'); }
 }
@@ -134,7 +143,7 @@ async function guardarCambios() {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
     });
     const j = await res.json();
-    if (j.success) { alert('Nota actualizada'); window.location.href = 'VerNotas'; }
+    if (j.success) { alert('Nota actualizada'); window.location.href = 'VerNotas.php'; }
     else alert('Error: ' + (j.message||''));
   } catch (err) { console.error(err); alert('Error de conexión al guardar'); }
 }

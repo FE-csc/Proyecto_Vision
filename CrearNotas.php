@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
@@ -40,7 +50,7 @@
 <main class="w-full max-w-7xl p-8">
 <div class="flex flex-col gap-8 max-w-4xl mx-auto">
 <div class="flex flex-col gap-2">
-<a href="VerNotas" class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors w-fit mb-2">
+<a href="VerNotas.php" class="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors w-fit mb-2">
 <span class="material-symbols-outlined">arrow_back</span>
 <span class="text-sm font-medium">Regresar a Notas y Evolución</span>
 </a>
@@ -87,7 +97,7 @@
 </div>
 
 <script>
-// ID del psicólogo: si luego tienes sesión, reemplaza por el ID real
+
 const ID_PSICOLOGO = 1;
 document.addEventListener('DOMContentLoaded', () => {
   cargarPacientes();
@@ -98,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('form');
   form.addEventListener('submit', guardarNota);
   document.querySelector('button[type="button"]').addEventListener('click', () => {
-    if (confirm('Cancelar?')) window.location.href = 'VerNotas';
+    if (confirm('Cancelar?')) window.location.href = 'VerNotas.php';
   });
 });
 
@@ -133,7 +143,7 @@ async function guardarNota(e) {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
     });
     const j = await res.json();
-    if (j.success) { alert('Nota creada'); window.location.href = 'VerNotas'; }
+    if (j.success) { alert('Nota creada'); window.location.href = 'VerNotas.php'; }
     else alert('Error: ' + (j.message||''));
   } catch (err) { console.error(err); alert('Error de conexión'); }
 }
