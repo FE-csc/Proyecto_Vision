@@ -2,9 +2,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'phpmailer/src/Exception.php';
-require 'phpmailer/src/PHPMailer.php';
-require 'phpmailer/src/SMTP.php';
+require 'PHPMailer-7.0.1\PHPMailer-7.0.1\src\Exception.php';
+require 'PHPMailer-7.0.1\PHPMailer-7.0.1\src\PHPMailer.php';
+require 'PHPMailer-7.0.1/PHPMailer-7.0.1/src/SMTP.php';
 
 header("Content-Type: application/json");
 
@@ -20,20 +20,21 @@ $phone = $_POST['phone'];
 $message = $_POST['message'];
 
 $mail = new PHPMailer(true);
-
+$mail->SMTPDebug = 3;
+$mail->Debugoutput = 'html';
 try {
     // Config SMTP
     $mail->isSMTP();
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'Warioregon123@gmail.com';  
+    $mail->Username   = 'warioregon123@gmail.com';  
     $mail->Password   = 'uyhv odfb csit upag';   
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
     // Remitente y destinatario
-    $mail->setFrom('Warioregon123@gmail.com', 'FORMULARIO WEB');
-    $mail->addAddress('Warioregon123@gmail.com');
+    $mail->setFrom('warioregon123@gmail.com', 'FORMULARIO WEB');
+    $mail->addAddress('warioregon123@gmail.com');
 
     // Contenido
     $mail->isHTML(true);
