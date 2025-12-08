@@ -181,7 +181,75 @@ $jsData = [
 
                 <div id="dashboardPanel">
                     <h1 id="welcomeTitle" class="text-4xl font-bold text-gray-900 dark:text-white mb-8">¡Bienvenido, <?php echo htmlspecialchars($nombreCompleto); ?>!</h1>
-                    
+                    <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-lg p-8">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="flex-1">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex items-center justify-center size-12 rounded-full bg-primary/10 dark:bg-primary/20">
+<span class="material-symbols-outlined text-primary text-3xl">event_upcoming</span>
+</div>
+<div>
+<h2 class="text-slate-900 dark:text-white text-2xl font-bold">Próxima Cita</h2>
+<p class="text-slate-500 dark:text-slate-400">Detalles de tu próxima consulta médica.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<span class="material-symbols-outlined text-primary mt-1">calendar_month</span>
+<div>
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Fecha y Hora</h3>
+<p class="text-slate-800 dark:text-slate-200 text-lg font-bold">Mañana, 15 de Mayo</p>
+<p class="text-slate-600 dark:text-slate-300">10:00 AM</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<span class="material-symbols-outlined text-primary mt-1">person</span>
+<div>
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Profesional</h3>
+<p class="text-slate-800 dark:text-slate-200 text-lg font-bold">Dr. Martinez</p>
+<p class="text-slate-600 dark:text-slate-300">Cardiología</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<span class="material-symbols-outlined text-primary mt-1">location_on</span>
+<div>
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Ubicación</h3>
+<p class="text-slate-800 dark:text-slate-200 text-lg font-bold">Clínica Central</p>
+<p class="text-slate-600 dark:text-slate-300">Piso 2, Consultorio 204</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+<span class="material-symbols-outlined text-primary mt-1">medical_services</span>
+<div>
+<h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Tipo de Cita</h3>
+<p class="text-slate-800 dark:text-slate-200 text-lg font-bold">Consulta de Seguimiento</p>
+<p class="text-slate-600 dark:text-slate-300">Revisión anual</p>
+</div>
+</div>
+</div>
+</div>
+<div class="md:w-px bg-slate-200 dark:bg-slate-800"></div>
+<div class="flex flex-col gap-4 md:w-64 flex-shrink-0">
+<h3 class="text-slate-900 dark:text-white text-lg font-bold">Acciones</h3>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide gap-2 w-full">
+<span class="material-symbols-outlined text-base">calendar_add_on</span>
+<span class="truncate">Añadir al calendario</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
+<span class="material-symbols-outlined text-base">visibility</span>
+<span class="truncate">Ver detalles</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
+<span class="material-symbols-outlined text-base">edit_calendar</span>
+<span class="truncate">Reprogramar</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
+<span class="material-symbols-outlined text-base">cancel</span>
+<span class="truncate">Cancelar Cita</span>
+</button>
+</div>
+</div>
+</div>
                 </div>
 
                 <div id="HistorialPanel" class="hidden bg-white dark:bg-background-dark/50 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700/50">
@@ -215,7 +283,7 @@ $jsData = [
                         <div class="flex items-center justify-between p-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg">
                             <div>
                                 <p class="text-sm text-gray-500">Correo electrónico</p>
-                                <p id="Configuracion_Email" class="font-semibold text-gray-900 dark:text-gray-100"><?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
+                                <p id="settingsEmail" class="font-semibold text-gray-900 dark:text-gray-100"><?php echo htmlspecialchars($_SESSION['user_email']); ?></p>
                             </div>
                         </div>
                     </div>
@@ -275,7 +343,7 @@ $jsData = [
                 <p id="modalCita_Info" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecciona una acción</p>
             </div>
             <div class="space-y-3">
-                <button onclick="window.Editar_cita()" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg">
+                <button onclick="window.handleEditAppointment()" class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg">
                     <span class="material-symbols-outlined text-sm">edit</span> Editar
                 </button>
                 <button onclick="window.Eliminar_cita()" class="w-full flex items-center justify-center gap-2 bg-white dark:bg-gray-800 border border-red-200 text-red-600 hover:bg-red-50 font-medium py-2.5 px-4 rounded-lg">
