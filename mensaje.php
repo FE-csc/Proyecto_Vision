@@ -62,7 +62,7 @@ $Loggeado = isset($_SESSION['user_id']);
     <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
       <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
         <div class="flex items-center gap-3">
-          <a href="Index.html">
+          <a href="Index.php">
             <button>
               <div class="w-8 h-8 text-primary">
                 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -77,11 +77,11 @@ $Loggeado = isset($_SESSION['user_id']);
         </div>
         <nav class="hidden md:flex items-center gap-8">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Index.html"><button>Pagina Principal</button></a>
+            href="Index.php"><button>Pagina Principal</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Nosotros.html"><button>Sobre nosotros</button></a>
+            href="Nosotros.php"><button>Sobre nosotros</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Servicios.html"><button>Servicios</button></a>
+            href="Servicios.php"><button>Servicios</button></a>
         </nav>
         <script>
 
@@ -161,56 +161,22 @@ $Loggeado = isset($_SESSION['user_id']);
           </div>
           <div class="space-y-8">
             <div>
-              <h3 class="text-2xl font-bold mb-4">Otras formas de conectar</h3>
-              <p class="text-black/60 dark:text-white/60 mb-6">Siguenos en nuestrsa redes sociales, tips, y más.</p>
-              <div class="flex space-x-4">
-                <a class="flex flex-col items-center gap-2 group" href="#">
-                  <div class="bg-black/5 dark:bg-white/5 p-4 rounded-full group-hover:bg-primary/20 transition-colors">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z">
-                      </path>
-                    </svg>
-                  </div>
-                  <span
-                    class="text-sm font-medium text-black/60 dark:text-white/60 group-hover:text-primary transition-colors">Instagram</span>
-                </a>
-                <a class="flex flex-col items-center gap-2 group" href="#">
-                  <div class="bg-black/5 dark:bg-white/5 p-4 rounded-full group-hover:bg-primary/20 transition-colors">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z">
-                      </path>
-                    </svg>
-                  </div>
-                  <span
-                    class="text-sm font-medium text-black/60 dark:text-white/60 group-hover:text-primary transition-colors">Facebook</span>
-                </a>
-                <a class="flex flex-col items-center gap-2 group" href="#">
-                  <div class="bg-black/5 dark:bg-white/5 p-4 rounded-full group-hover:bg-primary/20 transition-colors">
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z">
-                      </path>
-                    </svg>
-                  </div>
-                  <span
-                    class="text-sm font-medium text-black/60 dark:text-white/60 group-hover:text-primary transition-colors">Twitter</span>
-                </a>
-              </div>
-            </div>
-            <div>
               <h3 class="text-2xl font-bold mb-4">Nuestra localizacion</h3>
-              <p class="text-black/60 dark:text-white/60 mb-2">Visit our office at:</p>
+              <p class="text-black/60 dark:text-white/60 mb-2">Visita nuestra oficina en:</p>
               <address class="not-italic text-black/80 dark:text-white/80">
                 El Alto de Guadalupe<br />
                 El Alto, 100m al Sur de Novacentro<br />
               </address>
             </div>
             <div class="w-full aspect-video rounded-xl overflow-hidden">
-              <div class="w-full h-full bg-cover bg-center"
-                style='background-image: url("https://www.weather-forecast.com/locationmaps/Guadalupe-2.12.gif");'>
-              </div>
+              <iframe
+                class="w-full h-full rounded-xl"
+                style="border:0; min-height:300px;"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Novacentro,+El+Alto+de+Guadalupe,+Costa+Rica&output=embed">
+              </iframe>
             </div>
           </div>
         </div>

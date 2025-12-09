@@ -98,7 +98,7 @@ $Loggeado = isset($_SESSION['user_id']);
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
           <div class="relative flex h-full flex-col items-start justify-end p-8 text-white md:p-12">
-            <h1 class="text-4xl font-black leading-tight tracking-tight md:text-5xl">Conoce Dr. Anya Sharma</h1>
+            <h1 class="text-4xl font-black leading-tight tracking-tight md:text-5xl">Conoce Dr. Melina Larrota</h1>
             <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg">
               Una psicóloga compasiva especializada en la salud mental de adolescentes y adultos jóvenes.
               La Dra. Sharma crea un espacio seguro y de apoyo para que los jóvenes puedan explorar sus sentimientos y
@@ -114,9 +114,9 @@ $Loggeado = isset($_SESSION['user_id']);
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-16">
           <div class="space-y-8 lg:col-span-2">
             <section>
-              <h2 class="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Acerca de la Dra. Sharma</h2>
+              <h2 class="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Acerca de la Dra. Melina Larrota</h2>
               <p class="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                La Dra. Sharma posee un doctorado en psicología clínica y cuenta con más de 10 años de experiencia
+                La Dra. Melina Larrota posee un doctorado en psicología clínica y cuenta con más de 10 años de experiencia
                 trabajando con jóvenes. Su enfoque es integrador, combinando la terapia cognitivo-conductual (TCC), la
                 atención plena (mindfulness) y la psicología positiva para adaptar el tratamiento a las necesidades
                 individuales de cada persona.
@@ -156,47 +156,7 @@ $Loggeado = isset($_SESSION['user_id']);
             </div>
           </div>
         </div>
-        <div class="mt-16">
-          <h2 class="text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">Testimonios</h2>
 
-          <!-- Form para agregar nuevos testimonios (Solo para clientes). Puedo copiar y pegar el codigo generado para dejarlo quemado. -->
-          <div class="mt-6 rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-background-dark">
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Agregar testimonio</h3>
-            <form id="testimonialForm" class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <input name="name" id="t_name" placeholder="Nombre" class="col-span-2 rounded-lg border p-2" />
-              <input name="photo" id="t_photo" placeholder="URL de la foto (opcional)" class="col-span-2 rounded-lg border p-2" />
-              <label class="col-span-2 text-sm text-slate-600 dark:text-slate-300">Calificación</label>
-              <div class="col-span-2 flex items-center gap-2">
-                <div id="t_rating" class="flex gap-1" data-rating="5" aria-label="Selecciona calificación">
-                  <button type="button" class="rating-star text-primary text-xl">★</button>
-                  <button type="button" class="rating-star text-primary text-xl">★</button>
-                  <button type="button" class="rating-star text-primary text-xl">★</button>
-                  <button type="button" class="rating-star text-primary text-xl">★</button>
-                  <button type="button" class="rating-star text-primary text-xl">★</button>
-                </div>
-              </div>
-              <textarea name="message" id="t_message" rows="3" placeholder="Tu testimonio" class="col-span-2 rounded-lg border p-2"></textarea>
-              <div class="col-span-2 flex gap-3">
-                <button id="addTestimonial" class="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-white" type="submit">Agregar</button>
-                <button id="generateHTML" class="inline-flex items-center justify-center rounded-full border px-4 py-2" type="button">Generar HTML</button>
-                <button id="clearForm" class="inline-flex items-center justify-center rounded-full border px-4 py-2" type="button">Limpiar</button>
-              </div>
-            </form>
-
-            <div id="generatedHtmlArea" class="mt-4 hidden">
-              <label class="text-sm text-slate-600 dark:text-slate-300">HTML generado (copiar y pegar en el archivo para que quede estático):</label>
-              <textarea id="generatedHtml" class="w-full mt-2 h-32 rounded border p-2 font-mono text-sm" readonly></textarea>
-              <div class="mt-2 flex gap-2">
-                <button id="copyHtmlBtn" class="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-white">Copiar HTML</button>
-                <button id="hideHtmlBtn" class="inline-flex items-center justify-center rounded-full border px-4 py-2">Ocultar</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2" id="testimonialsGrid">
-            <!-- Aqui se ponen los testimonios para quemarlos en codigo -->
-          </div>
-        </div>
       </div>
     </main>
     <footer class="border-t border-slate-200 bg-background-light dark:border-slate-800 dark:bg-background-dark">
@@ -220,175 +180,3 @@ $Loggeado = isset($_SESSION['user_id']);
 
 <script src="auth.js"></script>
 
-<script>
-  (function() {
-    // Helpers
-    function el(tag, props = {}, ...children) {
-      const e = document.createElement(tag);
-      Object.entries(props).forEach(([k, v]) => {
-        if (k === 'class') e.className = v;
-        else if (k === 'html') e.innerHTML = v;
-        else e.setAttribute(k, v);
-      });
-      children.flat().forEach(ch => {
-        if (typeof ch === 'string') e.appendChild(document.createTextNode(ch));
-        else if (ch) e.appendChild(ch);
-      });
-      return e;
-    }
-
-    const grid = document.getElementById('testimonialsGrid');
-    const form = document.getElementById('testimonialForm');
-    const ratingContainer = document.getElementById('t_rating');
-    const generatedArea = document.getElementById('generatedHtmlArea');
-    const generatedTextarea = document.getElementById('generatedHtml');
-
-
-    function setRatingUI(container, value) {
-      container.dataset.rating = value;
-      Array.from(container.children).forEach((btn, i) => {
-        btn.classList.toggle('opacity-30', i >= value);
-      });
-    }
-    setRatingUI(ratingContainer, 5);
-    ratingContainer.addEventListener('click', (e) => {
-      if (e.target && e.target.matches('.rating-star')) {
-        const idx = Array.from(ratingContainer.children).indexOf(e.target) + 1;
-        setRatingUI(ratingContainer, idx);
-      }
-    });
-
-    function createTestimonialCard({
-      name,
-      photo,
-      rating,
-      message,
-      likes = 0,
-      dislikes = 0
-    }) {
-      const img = el('img', {
-        alt: name + "'s avatar",
-        class: 'h-12 w-12 rounded-full object-cover',
-        src: photo || 'https://via.placeholder.com/150'
-      });
-      const title = el('p', {
-        class: 'font-semibold text-slate-900 dark:text-white'
-      }, name);
-      const date = el('p', {
-        class: 'text-sm text-slate-500 dark:text-slate-400'
-      }, new Date().toLocaleDateString());
-
-      const header = el('div', {
-        class: 'flex items-center gap-4'
-      }, img, el('div', {}, title, date));
-
-      const stars = el('div', {
-        class: 'mt-3 flex items-center',
-        'aria-hidden': 'true'
-      });
-      for (let i = 1; i <= 5; i++) {
-        const star = el('button', {
-          type: 'button',
-          class: 'material-symbols-outlined text-primary text-xl star-btn',
-          'data-value': i
-        }, 'star');
-        if (i > rating) star.classList.add('opacity-30');
-        stars.appendChild(star);
-      }
-
-      const msg = el('p', {
-        class: 'mt-4 text-base text-slate-600 dark:text-slate-300'
-      }, message);
-
-
-      const likeBtn = el('button', {
-        class: 'flex items-center gap-1.5 transition-colors hover:text-primary like-btn',
-        type: 'button'
-      }, el('span', {
-        class: 'material-symbols-outlined text-lg'
-      }, 'thumb_up'), el('span', {
-        class: 'text-sm font-medium like-count'
-      }, String(likes)));
-      const dislikeBtn = el('button', {
-        class: 'flex items-center gap-1.5 transition-colors hover:text-slate-600 dark:hover:text-slate-300 dislike-btn',
-        type: 'button'
-      }, el('span', {
-        class: 'material-symbols-outlined text-lg'
-      }, 'thumb_down'), el('span', {
-        class: 'text-sm font-medium dislike-count'
-      }, String(dislikes)));
-
-      const actions = el('div', {
-        class: 'mt-4 flex items-center gap-6 text-slate-500 dark:text-slate-400'
-      }, likeBtn, dislikeBtn);
-
-      const card = el('div', {
-        class: 'rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-background-dark'
-      });
-      card.appendChild(header);
-      card.appendChild(stars);
-      card.appendChild(msg);
-      card.appendChild(actions);
-
-
-      stars.addEventListener('click', (ev) => {
-        if (ev.target && ev.target.matches('.star-btn')) {
-          const v = Number(ev.target.dataset.value);
-          Array.from(stars.children).forEach((s, i) => s.classList.toggle('opacity-30', i >= v));
-        }
-      });
-
-      likeBtn.addEventListener('click', () => {
-        const span = likeBtn.querySelector('.like-count');
-        const v = Number(span.textContent) + 1;
-        span.textContent = String(v);
-      });
-      dislikeBtn.addEventListener('click', () => {
-        const span = dislikeBtn.querySelector('.dislike-count');
-        const v = Number(span.textContent) + 1;
-        span.textContent = String(v);
-      });
-
-      return card;
-    }
-
-
-
-    document.getElementById('addTestimonial').addEventListener('click', (ev) => {
-      ev.preventDefault();
-      const name = document.getElementById('t_name').value.trim() || 'Anónimo';
-      const photo = document.getElementById('t_photo').value.trim();
-      const message = document.getElementById('t_message').value.trim() || 'Gracias por el apoyo.';
-      const rating = Number(ratingContainer.dataset.rating) || 5;
-      const card = createTestimonialCard({
-        name,
-        photo,
-        rating,
-        message
-      });
-      grid.prepend(card);
-      form.reset();
-      setRatingUI(ratingContainer, 5);
-    });
-
-    document.getElementById('clearForm').addEventListener('click', () => {
-      form.reset();
-      setRatingUI(ratingContainer, 5);
-    });
-
-    document.getElementById('generateHTML').addEventListener('click', () => {
-
-      const nodes = Array.from(grid.children);
-      const htmlStrings = nodes.map(node => node.outerHTML);
-      generatedTextarea.value = htmlStrings.join('\n\n');
-      generatedArea.classList.remove('hidden');
-    });
-    document.getElementById('hideHtmlBtn').addEventListener('click', () => generatedArea.classList.add('hidden'));
-    document.getElementById('copyHtmlBtn').addEventListener('click', () => {
-      generatedTextarea.select();
-      document.execCommand('copy');
-      alert('HTML copiado al portapapeles. Pegalo en el archivo donde quieras que quede estático.');
-    });
-
-  })();
-</script>

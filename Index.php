@@ -95,10 +95,9 @@ $Loggeado = isset($_SESSION['user_id']);
             </header>
             <main class="flex-1">
                 <section class="relative h-[60vh] min-h-[480px] flex items-center justify-center text-center bg-cover bg-center"
-                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFB9hcX9kiZ-vmOwUzNDRCiNJkJrGVisU6Eh-UaaTVSRqx7xTZq9357HDxuOTPBddCSt93DoajchgEfqQcUzB2kTY8sysTRVkVQpoNs1mTty5XPM31dN9LyJrSCTh0IE2nvE0iyYXHkyncTXAWZidk2TT57K-weJnxh9pLk-tE-DmSOYVU0dKVIM6hljv1XW6tgBV4OrfOKb-0zDFuNex79b9OSEge3JQbyj-c5OCLp1ReBopncVCYtofzEcZHvkP53xC0hZuh_Xk");'>
+                    style='background-image: linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=2070&auto=format&fit=crop");'>
                     <div class="container mx-auto px-6 max-w-4xl">
-                        <h1 class="text-4xl md:text-6xl font-black text-white text-shadow leading-tight">Tu mente, tu rumbo, tu
-                            visión.</h1>
+                        <h1 class="text-4xl md:text-6xl font-black text-white text-shadow leading-tight">Tu mente, tu rumbo,<br>tu visión.</h1>
                         <p class="mt-4 text-lg md:text-xl text-white/90 text-shadow max-w-3xl mx-auto">
                             Bienvenido(a) a Visión, un espacio pensado para jóvenes que buscan cuidar su salud mental y descubrir su
                             mejor versión.
@@ -178,47 +177,19 @@ $Loggeado = isset($_SESSION['user_id']);
 
                             </p>
                         </div>
-                        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            <div class="group">
+                        <div class="mt-12 flex justify-center">
+                            <div class="group max-w-md w-full">
                                 <div class="overflow-hidden rounded-lg">
                                     <div
                                         class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
-                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjZuvLPkWnQztC1Z6d9C6JXKgx2Lb2NFBSViWF-ea89LE8xawxuZyRncpAAD7aFde0PwkwWfVN_FwzYaDl6nX9SUSxwBjuYn5W3SFQMlOYncENIQR5-LM9PtGkJxnRCO4qNmxrlhFYHs47yKMDwR1UVHufMF4YS9wdgRNMxUeRGKNskdCaQKm-bJ2bn0HNPbafGzQ8PbQQF2Je5QhclhkuR0Fy4iYS5NalmwZPhWzaq9ceIHu64bCk9XwqRl7tXbfkwcY-8-l9HLA");'>
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhXzTO1QPifHDTeupswtwR16nco09B1Pj6ebK31u0HADGmMb1o0mHgMoyWjceNsH1Ng0R9cPHeUGxtx9vPtVN-zW92aF2nqIswOjNJMKXS44Qm8uGA9mjajDB1Acs16nDN_3VEdmZIuctY6EGc9CcC5oL7nj1awEgdS6uZbSXa1oh_jINa7PfkDyUYS4kq3g14yUW4kpMCm-uY4aSYdVVJK9OztjjdsAsQQtqJQzIvl3mti46mI7mWKD5-SrNShW0VPZC1hSoCLi0");'>
                                     </div>
                                 </div>
-                                <div class="mt-4 text-center">
-                                    <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Amelia Carter</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Especialista en psicología adolescente</p>
+                                <div class="mt-6 text-center">
+                                    <p class="text-2xl font-bold text-gray-900 dark:text-white">Dra. Melina Larrota</p>
+                                    <p class="text-base text-gray-600 dark:text-gray-400 mt-2">Psicóloga clínica especializada en salud mental de adolescentes y adultos jóvenes</p>
                                 </div>
                             </div>
-                            <div class="group">
-                                <div class="overflow-hidden rounded-lg">
-                                    <div
-                                        class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
-                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBuQ1sXslXhVUfDxK6a5DW_I8YHGs3gMVJhOjvspl27wzungYezrZG0XQOW6TUjYtt6WvH6IZTgWmW_sRQBHc2j0srzX3ENEe-tNTGk42p5CtvDce-BjLiFFJOuIwuKEe4kbjHti_GfO5YKAHbnQxmDjdZIyMDR-YjUCQDd7t1sUGMM5g57VcqM62YrcfYDzE_cvOPlLEMfspwBC4P5asDV5z8MJ8zU1G57NRLd5Pi3XOTgR8dy6Mz8XKldhp4TzActkTC-NYtFnnE");'>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Ethan Bennett</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Experto en TCC (Terapia Cognitivo-Conductual) y
-                                        mindfulness.</p>
-                                </div>
-                            </div>
-                            <div class="group">
-                                <div class="overflow-hidden rounded-lg">
-                                    <div
-                                        class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
-                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAs0iAaSBdfTFUamwHCX7rNRc3zTmGu9_aYY6Fm7gFbiq_3gvf2_tijA4pz6bTILOa_tNCjADSdPQDri3xYGwf2MF9U3hN5NDxUuurDeHW_v6GoZQUF6HrFYZG-8QBfnLeYjST9v4kJjkIPXeqd19G6EcajB3w9d5kZxlbDREz5GZMMafTdhQ6_5nX7zoijXG_bels6WwnM2sB-t5jCB0P9IfG2F_gzAMsmpzNbxqc5RGcPE5_cfln4X9axme32tw138xM99qXM1PU");'>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <p class="text-lg font-bold text-gray-900 dark:text-white">Dr. Sophia Clark</p>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">Se enfoca en crear entornos de apoyo.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-12 text-center">
-
                         </div>
                     </div>
                 </section>
