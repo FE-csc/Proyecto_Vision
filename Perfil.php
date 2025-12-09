@@ -250,29 +250,7 @@ $jsData = [
                             </div>
 
                             <div class="md:w-px bg-slate-200 dark:bg-slate-800"></div>
-                            <div class="flex flex-col gap-4 md:w-64 flex-shrink-0">
-                                <h3 class="text-slate-900 dark:text-white text-lg font-bold">Acciones</h3>
-                                <button
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-wide gap-2 w-full">
-                                    <span class="material-symbols-outlined text-base">calendar_add_on</span>
-                                    <span class="truncate">Añadir al calendario</span>
-                                </button>
-                                <button
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
-                                    <span class="material-symbols-outlined text-base">visibility</span>
-                                    <span class="truncate">Ver detalles</span>
-                                </button>
-                                <button
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
-                                    <span class="material-symbols-outlined text-base">edit_calendar</span>
-                                    <span class="truncate">Reprogramar</span>
-                                </button>
-                                <button
-                                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm font-bold leading-normal tracking-wide gap-2 w-full">
-                                    <span class="material-symbols-outlined text-base">cancel</span>
-                                    <span class="truncate">Cancelar Cita</span>
-                                </button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -474,7 +452,7 @@ $jsData = [
     <script src="Perfil_Cita.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const idPaciente = 1; // Cambia por el ID real de la sesión
+            const idPaciente = <?php echo $idPaciente; ?>;; // Cambia por el ID real de la sesión
 
             fetch(`proxima_cita.php?idPaciente=${idPaciente}`)
                 .then(res => res.json())
