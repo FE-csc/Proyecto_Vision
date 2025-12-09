@@ -110,13 +110,7 @@ if (!$paciente) {
 $idPaciente = $paciente['ID_Paciente'];
 $fechaCompleta = $fecha . ' ' . $hora;
 
-// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-// SECCIÓN 5: INSERCIÓN DE NUEVA CITA
-// Inserta registro en tabla citas con todos los datos recopilados
-// Usa prepared statements para prevenir SQL injection
-// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-// Insertar cita con estado inicial "Pendiente"
 $stmt = $mysqli->prepare("INSERT INTO citas 
     (ID_Paciente, ID_Psicologo, Fecha_Cita, Motivo, Estado, Duracion) 
     VALUES (?, ?, ?, ?, 'Pendiente', ?)");
