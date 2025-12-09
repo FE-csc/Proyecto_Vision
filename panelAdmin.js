@@ -10,6 +10,7 @@
  * <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  */
 
+// Roles numericos a texto
 function rolLabel(rol){
   if(rol == 1) return 'Paciente';
   if(rol == 2) return 'Doctor';
@@ -97,12 +98,47 @@ function eliminarUsuario(id){
   });
 }
 
+//Cerrar sesión
+function cerrarSesion(){
+  if (!confirm("¿Seguro que deseas cerrar sesión?")) return;
+  $.ajax({
+    url: 'panelAdmin.php?action=logout',
+    method: 'POST',
+    dataType: 'json',
+    success: function(data){
+      alert(data.message || "Sesión cerrada");
+      // Redirigir al inicio de sesión
+      window.location.href = 'index.php';
+    },
+    error: function(e){
+      alert('Error al cerrar sesión: ' + e.responseText);
+    }
+  });
+}
+
 // Inicializa la tabla
+
+// Variable para controlar el temporizador debounce
+let debounceTimer;
+
 $(document).ready(function(){
+  // Cargar usuarios inicialmente
   cargarUsuarios();
 
-  // Recargar automáticamente al cambiar filtros
-  $('#f_nombre, #f_correo, #f_rol').on('input change', function(){
+  // Recargar filtros con debounce
+  $('#f_nombre, #f_rol').on('input change', function(){
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(cargarUsuarios, 300); // Espera 300ms después del último cambio
+  });
+
+  // Filtro de rol funciona inmediatamente
+  $('#f_rol').on('change', function(){
     cargarUsuarios();
+  });
+
+  // Manejar clic en cerrar sesión y evita la navegacion del enlace
+  $('#btnLogout').on('click', function(e){
+    e.preventDefault();
+    cerrarSesion();
   });
 });

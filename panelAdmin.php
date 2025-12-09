@@ -50,11 +50,6 @@ if($action === 'list') {
         $params = array_merge($params, [$like, $like, $like, $like]);
         $types .= 'ssss';
     }
-    if ($correo !== ''){
-        $where[] = "u.email=?";
-        $params[] = "%$correo%";
-        $types .= 's';
-    }
     if($rol !== '') {
         $where[] = "u.ID_Role=?";
         $params[] = (int)$rol;
@@ -153,6 +148,12 @@ elseif ($action === 'deleteUser') {
 
     header('Content-Type: application/json');
     echo json_encode(['message' => 'Usuario eliminado']);
+    exit;
+}
+elseif ($action === 'logout') {
+    session_destroy();
+    header('Content-Type: application/json');
+    echo json_encode(['message' => 'Sesión cerrada']);
     exit;
 }
 

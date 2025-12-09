@@ -132,7 +132,7 @@ if (empty($_SESSION['user_id'])) {
                                     id="f_nombre"
                                     type="text"
                                     class="form-input flex w-full border-none bg-transparent h-full px-3 text-sm focus:ring-0 focus:outline-none"
-                                    placeholder="Buscar por nombre o correo..."
+                                    placeholder="Buscar por nombre"
                                 />
                             </div>
                         </label>
@@ -154,6 +154,12 @@ if (empty($_SESSION['user_id'])) {
                                 <option value="3">Administrador</option>
                             </select>
                         </label>
+                    </div>
+                    <div>
+                        <a id="btnLogout" class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium cursor-pointer">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span>Cerrar sesión</span>
+                        </a>
                     </div>
                 </div>
 
