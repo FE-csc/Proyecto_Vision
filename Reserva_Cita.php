@@ -111,6 +111,24 @@ $idPaciente = $paciente['ID_Paciente'];
 $fechaCompleta = $fecha . ' ' . $hora;
 
 
+$stmtCheck = $mysqli->prepare("
+    SELECT ID_Cita FROM citas 
+    WHERE ID_Psicologo = ? 
+      AND Fecha_Cita = ? 
+      AND Estado <> 'cancelada' 
+    LIMIT 1
+");
+$stmtCheck->bind_param('is', $idPsicologo, $fechaCompleta);
+$stmtCheck->execute();
+$stmtCheck->store_result();
+
+if ($stmtCheck->num_rows > 0) {
+    echo json_encode(['success' => false, 'message' => 'El horario seleccionado ya está ocupado.']);
+    $stmtCheck->close();
+    exit;
+}
+
+// Inserción con todos los campos relevantes
 $stmt = $mysqli->prepare("INSERT INTO citas 
     (ID_Paciente, ID_Psicologo, Fecha_Cita, Motivo, Estado, Duracion) 
     VALUES (?, ?, ?, ?, 'Pendiente', ?)");

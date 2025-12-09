@@ -622,7 +622,7 @@ $jsData = [
                                     <!-- Icon: Servicios médicos -->
                                     <span class="material-symbols-outlined text-primary mt-1">medical_services</span>
                                     <div>
-                                        <h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Tipo de Cita
+                                        <h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Estado de la cita
                                         </h3>
                                         <!-- #tipo_cita: Cargada por JS (sección 5) -->
                                         <p id="tipo_cita" class="text-slate-800 dark:text-slate-200 text-lg font-bold">
