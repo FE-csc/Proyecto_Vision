@@ -15,13 +15,14 @@ $sql = "
 SELECT 
     c.ID_Cita,
     c.Fecha_Cita,
-    c.Motivo,
+    e.Nombre_Especialidad AS Nombre_Especialidad,
     c.Estado,
     c.Duracion,
     p.Nombre_Psicologo,
     p.Apellido_Psicologo
 FROM citas c
 INNER JOIN psicologos p ON c.ID_Psicologo = p.ID_Psicologo
+LEFT JOIN especialidades e ON p.ID_Especialidad = e.ID_Especialidad
 WHERE c.ID_Paciente = ?
   AND c.Fecha_Cita >= NOW()
 ORDER BY c.Fecha_Cita ASC

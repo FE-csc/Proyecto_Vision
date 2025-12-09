@@ -102,7 +102,7 @@ if ($result = $mysqli->query($query)) {
                       <option value="<?php echo $esp['ID_Especialidad']; ?>">
                           <?php echo htmlspecialchars($esp['Nombre_Especialidad']); ?>
                       </option>
-                  <?php endforeach; ?>
+                  <?php endforeach; ?>`
                 </select>
               </div>
 
@@ -140,6 +140,6 @@ if ($result = $mysqli->query($query)) {
       </div>
     </main>
   </div>
-  <script src="Cita_calendario.js"></script>
+  <script src="Reserva_Cita_calendario.js"></script>
 </body>
 </html>

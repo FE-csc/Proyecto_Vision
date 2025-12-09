@@ -231,7 +231,7 @@ $jsData = [
                                         <h3 class="text-slate-500 dark:text-slate-400 text-sm font-medium">Profesional
                                         </h3>
                                         <p id="doctor" class="text-slate-800 dark:text-slate-200 text-lg font-bold"></p>
-                                        <p id="motivo" class="text-slate-600 dark:text-slate-300"></p>
+                                        <p id="Espcialidad" class="text-slate-600 dark:text-slate-300"></p>
                                     </div>
                                 </div>
 
@@ -448,7 +448,7 @@ $jsData = [
         </div>
     </div>
 
-    <script src="Perfil_Cita.js"></script>
+    <script src="Usuario_Dashboard.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const idPaciente = <?php echo $idPaciente; ?>;; // Cambia por el ID real de la sesión
@@ -470,8 +470,9 @@ $jsData = [
                     document.getElementById("fecha").innerText = fechaFormateada;
                     document.getElementById("hora").innerText = horaFormateada;
                     document.getElementById("doctor").innerText = `${data.Nombre_Psicologo} ${data.Apellido_Psicologo}`;
-                    document.getElementById("motivo").innerText = data.Motivo;
+                    document.getElementById("Espcialidad").innerText = data.Nombre_Especialidad;
                     document.getElementById("tipo_cita").innerText = data.Estado;
+
                     document.getElementById("duracion").innerText = data.Duracion + " minutos";
                 });
         });
