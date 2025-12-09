@@ -165,8 +165,7 @@ $jsData = [
                     <span>Resumen</span>
                 </a>
                 <a id="CalendarioBtn"
-                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium cursor-pointer"
-                    href="#">
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-primary/10 dark:hover:bg-primary/20 font-medium cursor-pointer">
                     <span class="material-symbols-outlined">calendar_month</span>
                     <span>Calendario</span>
                 </a>
@@ -390,7 +389,7 @@ $jsData = [
                 <p id="modalCita_Info" class="text-sm text-gray-500 dark:text-gray-400 mt-1">Selecciona una acción</p>
             </div>
             <div class="space-y-3">
-                <button onclick="window.handleEditAppointment()"
+                <button onclick="window.Editar_cita()"
                     class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg">
                     <span class="material-symbols-outlined text-sm">edit</span> Editar
                 </button>
