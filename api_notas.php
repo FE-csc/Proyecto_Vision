@@ -1,10 +1,26 @@
 <?php
+session_start();
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 require_once 'db.php';
+
+// Validar sesión
+if (empty($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'No autorizado']);
+    exit;
+}
+
+// Obtener ID del psicólogo desde la sesión
+$ID_Psicologo = obtenerIdPsicologo($mysqli, $_SESSION['user_id']);
+if (!$ID_Psicologo) {
+    http_response_code(401);
+    echo json_encode(['success' => false, 'message' => 'No se encontró el perfil del psicólogo']);
+    exit;
+}
 
 $method = $_SERVER['REQUEST_METHOD'];
 action:
@@ -15,7 +31,7 @@ function json_error($message, $code = 400) {
     echo json_encode(['success' => false, 'message' => $message]);
 }
 
-function listarNotas($mysqli) {
+function listarNotas($mysqli, $ID_Psicologo) {
     // Permitir filtrar por paciente usando ?paciente_id=
     if (isset($_GET['paciente_id']) && intval($_GET['paciente_id'])>0) {
         $pid = intval($_GET['paciente_id']);
@@ -25,11 +41,11 @@ function listarNotas($mysqli) {
                 FROM notas_clinicas n
                 INNER JOIN pacientes p ON n.ID_Paciente = p.ID_Paciente
                 INNER JOIN psicologos ps ON n.ID_Psicologo = ps.ID_Psicologo
-                WHERE n.ID_Paciente = ?
+                WHERE n.ID_Paciente = ? AND n.ID_Psicologo = ?
                 ORDER BY n.Fecha_Sesion DESC, n.Fecha_Actualizacion DESC";
 
         $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param('i', $pid);
+        $stmt->bind_param('ii', $pid, $ID_Psicologo);
         if (!$stmt->execute()) return json_error('Error al obtener notas: '.$mysqli->error, 500);
         $res = $stmt->get_result();
         $rows = [];
@@ -44,9 +60,13 @@ function listarNotas($mysqli) {
             FROM notas_clinicas n
             INNER JOIN pacientes p ON n.ID_Paciente = p.ID_Paciente
             INNER JOIN psicologos ps ON n.ID_Psicologo = ps.ID_Psicologo
+            WHERE n.ID_Psicologo = ?
             ORDER BY n.Fecha_Sesion DESC, n.Fecha_Actualizacion DESC";
 
-    $res = $mysqli->query($sql);
+    $stmt = $mysqli->prepare($sql);
+    $stmt->bind_param('i', $ID_Psicologo);
+    $stmt->execute();
+    $res = $stmt->get_result();
     if (!$res) return json_error('Error al obtener notas: ' . $mysqli->error, 500);
 
     $rows = [];
@@ -54,7 +74,7 @@ function listarNotas($mysqli) {
     echo json_encode(['success' => true, 'data' => $rows]);
 }
 
-function obtenerNota($mysqli, $id) {
+function obtenerNota($mysqli, $id, $ID_Psicologo) {
     $id = intval($id);
     $sql = "SELECT n.ID_Nota, n.ID_Paciente, n.ID_Psicologo, n.ID_Cita, n.Fecha_Sesion, n.Contenido, n.Resumen, n.Fecha_Creacion, n.Fecha_Actualizacion,
                 CONCAT(p.Nombre_Paciente, ' ', p.Apellido_Paciente) AS Nombre_Paciente,
@@ -62,10 +82,10 @@ function obtenerNota($mysqli, $id) {
             FROM notas_clinicas n
             INNER JOIN pacientes p ON n.ID_Paciente = p.ID_Paciente
             INNER JOIN psicologos ps ON n.ID_Psicologo = ps.ID_Psicologo
-            WHERE n.ID_Nota = ? LIMIT 1";
+            WHERE n.ID_Nota = ? AND n.ID_Psicologo = ? LIMIT 1";
 
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('i', $id);
+    $stmt->bind_param('ii', $id, $ID_Psicologo);
     $stmt->execute();
     $res = $stmt->get_result();
     if ($row = $res->fetch_assoc()) {
@@ -75,7 +95,7 @@ function obtenerNota($mysqli, $id) {
     }
 }
 
-function buscarNotas($mysqli, $q) {
+function buscarNotas($mysqli, $q, $ID_Psicologo) {
     $qLike = "%" . $q . "%";
     $sql = "SELECT n.ID_Nota, n.ID_Paciente, n.ID_Psicologo, n.ID_Cita, n.Fecha_Sesion, n.Contenido, n.Resumen, n.Fecha_Creacion, n.Fecha_Actualizacion,
                 CONCAT(p.Nombre_Paciente, ' ', p.Apellido_Paciente) AS Nombre_Paciente,
@@ -83,13 +103,13 @@ function buscarNotas($mysqli, $q) {
             FROM notas_clinicas n
             INNER JOIN pacientes p ON n.ID_Paciente = p.ID_Paciente
             INNER JOIN psicologos ps ON n.ID_Psicologo = ps.ID_Psicologo
-            WHERE CONCAT(p.Nombre_Paciente, ' ', p.Apellido_Paciente) LIKE ?
+            WHERE n.ID_Psicologo = ? AND (CONCAT(p.Nombre_Paciente, ' ', p.Apellido_Paciente) LIKE ?
                OR n.Resumen LIKE ?
-               OR n.Contenido LIKE ?
+               OR n.Contenido LIKE ?)
             ORDER BY n.Fecha_Sesion DESC, n.Fecha_Actualizacion DESC";
 
     $stmt = $mysqli->prepare($sql);
-    $stmt->bind_param('sss', $qLike, $qLike, $qLike);
+    $stmt->bind_param('isss', $ID_Psicologo, $qLike, $qLike, $qLike);
     $stmt->execute();
     $res = $stmt->get_result();
     $rows = [];
@@ -165,9 +185,9 @@ function eliminarNota($mysqli, $id) {
 }
 
 switch ($action) {
-    case 'listar': listarNotas($mysqli); break;
-    case 'obtener': if (isset($_GET['id'])) obtenerNota($mysqli, $_GET['id']); else json_error('ID requerido', 400); break;
-    case 'buscar': if (isset($_GET['q'])) buscarNotas($mysqli, $_GET['q']); else listarNotas($mysqli); break;
+    case 'listar': listarNotas($mysqli, $ID_Psicologo); break;
+    case 'obtener': if (isset($_GET['id'])) obtenerNota($mysqli, $_GET['id'], $ID_Psicologo); else json_error('ID requerido', 400); break;
+    case 'buscar': if (isset($_GET['q'])) buscarNotas($mysqli, $_GET['q'], $ID_Psicologo); else listarNotas($mysqli, $ID_Psicologo); break;
     case 'crear': if ($method === 'POST') crearNota($mysqli); else json_error('Método no permitido', 405); break;
     case 'actualizar': if ($method === 'POST' || $method === 'PUT') { if (isset($_GET['id'])) actualizarNota($mysqli, $_GET['id']); else json_error('ID requerido', 400);} else json_error('Método no permitido', 405); break;
     case 'eliminar': if ($method === 'POST' || $method === 'DELETE') { if (isset($_GET['id'])) eliminarNota($mysqli, $_GET['id']); else json_error('ID requerido', 400);} else json_error('Método no permitido', 405); break;

@@ -5,6 +5,15 @@ if (empty($_SESSION['user_id'])) {
     header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
+
+require_once 'db.php';
+
+// Obtener ID del psicólogo desde la sesión
+$ID_Psicologo = obtenerIdPsicologo($mysqli, $_SESSION['user_id']);
+if (!$ID_Psicologo) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -169,6 +178,7 @@ if (empty($_SESSION['user_id'])) {
     <script>
         // Cargar y mostrar notas desde API
         let todasLasNotas = [];
+        let ID_PSICOLOGO = <?php echo $ID_Psicologo; ?>;
         let pacientes = [];
         let pacienteSeleccionado = null;
 

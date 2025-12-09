@@ -98,19 +98,40 @@ if (empty($_SESSION['user_id'])) {
 
 <script>
 
-const ID_PSICOLOGO = 1;
-document.addEventListener('DOMContentLoaded', () => {
-  cargarPacientes();
-  const hoy = new Date().toISOString().split('T')[0];
-  const inputFecha = document.querySelector('input[type="date"]');
-  if (inputFecha) inputFecha.value = hoy;
+let ID_PSICOLOGO = null;
 
-  const form = document.querySelector('form');
-  form.addEventListener('submit', guardarNota);
-  document.querySelector('button[type="button"]').addEventListener('click', () => {
-    if (confirm('Cancelar?')) window.location.href = 'VerNotas.php';
+document.addEventListener('DOMContentLoaded', () => {
+  obtenerIdPsicologo().then(() => {
+    cargarPacientes();
+    const hoy = new Date().toISOString().split('T')[0];
+    const inputFecha = document.querySelector('input[type="date"]');
+    if (inputFecha) inputFecha.value = hoy;
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', guardarNota);
+    document.querySelector('button[type="button"]').addEventListener('click', () => {
+      if (confirm('Cancelar?')) window.location.href = 'VerNotas.php';
+    });
+  }).catch(err => {
+    alert('Error al cargar datos del psicólogo');
+    console.error(err);
   });
 });
+
+async function obtenerIdPsicologo() {
+  try {
+    const res = await fetch('get_id_psicologo.php');
+    const j = await res.json();
+    if (j.success) {
+      ID_PSICOLOGO = j.ID_Psicologo;
+    } else {
+      throw new Error(j.message || 'No se pudo obtener el ID del psicólogo');
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
 
 async function cargarPacientes() {
   try {
