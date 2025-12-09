@@ -1,3 +1,36 @@
+/**
+ * script_Doctor.js
+ * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+ * DESCRIPCIÓN: Controlador del dashboard para psicólogos/doctores
+ * 
+ * FUNCIONALIDAD PRINCIPAL:
+ * - Gestión de citas: visualización, filtrado, cambio de estado
+ * - Autenticación y logout con confirmación modal
+ * - Navegación entre paneles (Citas, Configuración, Dashboard)
+ * - Edición de perfil con validación
+ * - Manejo de errores y alertas globales
+ * 
+ * MÓDULOS FUNCIONALES:
+ * 1. Autenticación y Logout: Modal de confirmación antes de cerrar sesión
+ * 2. Navegación: Cambio dinámico entre paneles de la aplicación
+ * 3. Gestión de Citas: Carga, filtrado, actualización de estado
+ * 4. Perfil del Usuario: Edición de información personal
+ * 5. Modales y UI: Gestión de diálogos y alertas
+ * 
+ * VARIABLES GLOBALES:
+ * - citasData: Array con datos de citas del psicólogo
+ * - citaActualEnEdicion: Referencia a la cita siendo modificada
+ * - filtroNombrePaciente, filtroEstado, filtroOrden: Campos de filtro
+ * - modalCambiarEstadoOverlay, modalEstadoSelect: Modal de estado de cita
+ * 
+ * DEPENDENCIAS:
+ * - auth.js: Sistema de autenticación
+ * - calendarioCitas.js: Funciones de calendario
+ * - API: api_pacientes.php, Obtener_Cita.php
+ * 
+ * ACCESO: Solo psicólogos/doctores autenticados
+ * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+ */
 (function () {
 
 
@@ -23,7 +56,10 @@
 
 
 
-    // LOGOUT Y MODALES DE CONFIRMACIÓN
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+    // SECCIÓN 1: LOGOUT Y MODALES DE CONFIRMACIÓN
+    // Gestión de cierre de sesión con modal de confirmación
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
     const logoutBtn = document.getElementById('logoutBtn');
     const Logout = document.getElementById('btnLogout'); // Sidebar bottom
@@ -32,6 +68,10 @@
     const btnCancelar = document.getElementById('cancelarLogout');
     const btnConfirmar = document.getElementById('confirmarLogout');
 
+    /**
+     * Alterna visibilidad del modal de confirmación de logout
+     * @param {boolean} show - true para mostrar, false para ocultar
+     */
     function toggleModal(show) {
         if (!overlay || !modalWrap) return;
         const add = show ? ['opacity-100'] : ['opacity-0', 'pointer-events-none'];
@@ -48,6 +88,7 @@
     const openConfirm = () => toggleModal(true);
     const closeConfirm = () => toggleModal(false);
 
+    // Event listeners para logout
     if (logoutBtn) logoutBtn.addEventListener('click', (e) => { e.preventDefault(); openConfirm(); });
     if (Logout) Logout.addEventListener('click', (e) => { e.preventDefault(); openConfirm(); }); // Para botón extra si hubiera
     if (btnCancelar) btnCancelar.addEventListener('click', closeConfirm);
@@ -57,7 +98,10 @@
         if (window.Auth && window.Auth.logout) window.Auth.logout();
     });
 
-    //  NAVEGACIÓN Y PANELES
+    //  ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+    //  SECCIÓN 2: NAVEGACIÓN Y PANELES
+    //  Cambio dinámico entre paneles principales (Citas, Configuración, Dashboard)
+    //  ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
     const CitasBtn = document.getElementById('CitasBtn');
     const Configuracion_Btn = document.getElementById('Configuracion_Btn');
@@ -68,6 +112,10 @@
     const Configuracion_Panel = document.getElementById('Configuracion_Panel');
     const Configuracion_Email = document.getElementById('Configuracion_Email');
 
+    /**
+     * Establece el botón de navegación activo con estilos primarios
+     * @param {HTMLElement} btn - Botón a marcar como activo
+     */
     function setActive(btn) {
         [CitasBtn, Configuracion_Btn].forEach(b => {
             if (b) {
@@ -81,6 +129,10 @@
         }
     }
 
+    /**
+     * Cambia el panel visible ocultando otros
+     * @param {HTMLElement} ModalActivo - Panel/modal a mostrar
+     */
     function Cambio_modal(ModalActivo) {
         [dashboardPanel, CitasPanel, Configuracion_Panel].forEach(p => {
             if (p) p.classList.add('hidden');
@@ -89,6 +141,7 @@
     }
 
 
+    // Event listeners para navegación de paneles
     if (CitasBtn) CitasBtn.addEventListener('click', (e) => {
         e.preventDefault();
         Cambio_modal(CitasPanel);
@@ -109,7 +162,10 @@
     Cambio_modal(CitasPanel);
     cargarCitas();
 
-    // LOGICA MODAL ACTUALIZAR PERFIL
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+    // SECCIÓN 3: EDICIÓN DE PERFIL DE USUARIO
+    // Modal para actualizar información personal del psicólogo/doctor
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
     const profOpenBtn = document.getElementById('openProfileModalBtn');
     const profOverlay = document.getElementById('profileModalOverlay');
@@ -126,6 +182,11 @@
 
     let Info_ActualPerfil = { id_paciente: null, id_usuario: null };
 
+    /**
+     * Muestra un mensaje de alerta en el modal de perfil
+     * @param {string} msg - Mensaje a mostrar
+     * @param {string} type - Tipo de alerta: 'error' o 'success'
+     */
     function Mostar_Alert(msg, type = 'error') {
         if (!modalAlert) return;
         modalAlert.textContent = msg;
@@ -138,10 +199,17 @@
         modalAlert.classList.remove('hidden');
     }
 
+    /**
+     * Oculta el mensaje de alerta del modal
+     */
     function Ocultar_Alert() {
         if (modalAlert) modalAlert.classList.add('hidden');
     }
 
+    /**
+     * Carga la información actual del perfil del psicólogo desde servidor
+     * Llena los campos del formulario con datos existentes
+     */
     async function Cargar_InfoPerfil() {
         try {
             const resp = await fetch('actualizarPerfil.php?action=get_profile');
@@ -165,6 +233,11 @@
         }
     }
 
+    /**
+     * Guarda los cambios del perfil en el servidor
+     * Valida que nombre y apellido sean obligatorios
+     * Actualiza el display de nombre en la interfaz si es exitoso
+     */
     async function guardar_Info_Perfil() {
         Ocultar_Alert();
 
@@ -207,6 +280,10 @@
         }
     }
 
+    /**
+     * Abre el modal de edición de perfil con animaciones
+     * Carga la información actual del usuario
+     */
     function Abrir_PerfilModal() {
         if (!profOverlay || !perfilContainer) return;
         Ocultar_Alert();
@@ -217,6 +294,9 @@
         Cargar_InfoPerfil();
     }
 
+    /**
+     * Cierra el modal de edición de perfil con animaciones
+     */
     function Cerrar_PerfilModal() {
         if (!profOverlay || !perfilContainer) return;
         profOverlay.classList.add('opacity-0', 'pointer-events-none');
@@ -225,6 +305,7 @@
         perfilContainer.querySelector('div').classList.remove('scale-100');
     }
 
+    // Event listeners para modal de perfil
     if (profOpenBtn) profOpenBtn.addEventListener('click', Abrir_PerfilModal);
     if (perfilCloseBtn) perfilCloseBtn.addEventListener('click', Cerrar_PerfilModal);
     if (profCancelBtn) profCancelBtn.addEventListener('click', Cerrar_PerfilModal);
@@ -232,9 +313,16 @@
     if (profOverlay) profOverlay.addEventListener('click', Cerrar_PerfilModal);
 
 
-    // LOGICA CARGAR CITAS
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+    // SECCIÓN 4: GESTIÓN DE CITAS
+    // Carga, filtrado, visualización y cambio de estado de citas
+    // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-
+    /**
+     * Muestra una alerta global en la interfaz
+     * @param {string} mensaje - Texto del mensaje
+     * @param {string} tipo - Tipo de alerta: 'error' o 'success'
+     */
     function mostrarAlertaGlobal(mensaje, tipo = 'error') {
         const el = tipo === 'success' ? alertaExitoGlobal : alertaGeneralGlobal;
         if (!el) return;
@@ -243,7 +331,11 @@
         setTimeout(() => el.classList.add('hidden'), 4000);
     }
 
-
+    /**
+     * Carga todas las citas del psicólogo desde el servidor
+     * Obtiene datos de Citas_Psicologo.php?action=get_citas
+     * Aplica filtros automáticamente al terminar la carga
+     */
     async function cargarCitas() {
         if (!tbody) return;
         try {
@@ -275,7 +367,12 @@
 
     if (btnRecargarCitas) btnRecargarCitas.addEventListener('click', cargarCitas);
 
-    // RENDERIZAR CITAS
+    /**
+     * Renderiza las citas en la tabla de visualización
+     * Formatea fechas, estados, teléfono y correo de cada cita
+     * Agrega botón "Cambiar" para abrir modal de cambio de estado
+     * @param {Array} citasAMostrar - Array de citas a mostrar
+     */
     function renderizarCitas(citasAMostrar) {
         if (!tbody) return;
         if (citasAMostrar.length === 0) {
@@ -320,7 +417,11 @@
         }).join('');
     }
 
-    // FILTROS
+    /**
+     * Aplica filtros a las citas y re-renderiza la tabla
+     * Filtra por: nombre del paciente, estado, y ordena por fecha/ID
+     * Opciones de ordenamiento: fecha ascendente/descendente, ID ascendente/descendente
+     */
     function aplicarFiltros() {
         let res = [...citasData];
 
@@ -351,12 +452,25 @@
         renderizarCitas(res);
     }
 
+    // Event listeners para filtros
     if (filtroNombrePaciente) filtroNombrePaciente.addEventListener('input', aplicarFiltros);
     if (filtroEstado) filtroEstado.addEventListener('change', aplicarFiltros);
     if (filtroOrden) filtroOrden.addEventListener('change', aplicarFiltros);
 
 
+    /**
+     * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+     * SECCIÓN 5: MODAL DE CAMBIO DE ESTADO DE CITA
+     * Interfaz para modificar el estado de una cita (Pendiente, Confirmada, Completada, Cancelada)
+     * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+     */
 
+    /**
+     * Abre el modal para cambiar el estado de una cita
+     * @param {number} id - ID de la cita
+     * @param {string} estado - Estado actual de la cita
+     * @param {string} nombre - Nombre del paciente (para mostrar en modal)
+     */
     window.abrirModalEstado = function (id, estado, nombre) {
         citaActualEnEdicion = id;
         if (modalCitaInfo) modalCitaInfo.textContent = `Paciente: ${nombre} — Estado actual: ${estado}`;
@@ -364,11 +478,19 @@
         if (modalCambiarEstadoOverlay) modalCambiarEstadoOverlay.classList.remove('hidden');
     };
 
+    /**
+     * Cierra el modal de cambio de estado
+     */
     function cerrarModalEstado() {
         if (modalCambiarEstadoOverlay) modalCambiarEstadoOverlay.classList.add('hidden');
         citaActualEnEdicion = null;
     }
 
+    /**
+     * Guarda el nuevo estado de la cita en el servidor
+     * Realiza petición POST a Citas_Psicologo.php
+     * Recarga la tabla de citas al completar
+     */
     async function guardarEstado() {
         if (!citaActualEnEdicion || !modalEstadoSelect) return;
         const nuevoEstado = modalEstadoSelect.value;
@@ -400,6 +522,7 @@
         }
     }
 
+    // Event listeners para modal de estado
     if (btnCancelarEstado) btnCancelarEstado.addEventListener('click', cerrarModalEstado);
     if (btnGuardarEstado) btnGuardarEstado.addEventListener('click', guardarEstado);
     if (modalCambiarEstadoOverlay) modalCambiarEstadoOverlay.addEventListener('click', (e) => {

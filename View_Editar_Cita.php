@@ -1,57 +1,97 @@
 <?php
+/**
+ * View_Editar_Cita.php
+ * 
+ * Página para editar/reprogramar citas existentes. Permite a los usuarios autenticados
+ * cambiar la fecha, hora, especialidad y psicólogo de una cita ya reservada.
+ * 
+ * @author Vision
+ * @version 1.0
+ */
 
 session_start();
-
 require_once 'db.php';
 
+// Verificar que el usuario esté autenticado
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html?redirect=' . urldecode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
 
+// Obtener todas las especialidades disponibles de la base de datos
 $especialidades = [];
 
 $query = "SELECT ID_Especialidad, Nombre_Especialidad FROM especialidades";
 if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
         $especialidades[] = $row;
-}
+    }
 }
 
+// Validar que se haya pasado el ID de la cita a editar
 if (isset($_REQUEST['id'])) {
   $citaId = $_REQUEST['id'];
 } else {
-  
+  // Si no hay ID, redirigir al inicio
   header('Location: Index.php');
   exit;
 }
+
+// Obtener el ID del usuario de la sesión
 $userId = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- ═══════════════════════════════════════════════════════════════════════════════
+       SECCIÓN: Metadatos y Configuración del Documento
+       ═══════════════════════════════════════════════════════════════════════════════ -->
+  
+  <!-- Codificación de caracteres UTF-8 para soporte de caracteres especiales -->
   <meta charset="utf-8" />
+  
+  <!-- Preconexión a Google Fonts para optimización de carga -->
   <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+  
+  <!-- Importación de tipografías: Inter y Noto Sans (pesos: 400, 500, 700, 900) -->
   <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40400%3B500%3B700%3B900&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet" />
+  
+  <!-- CDN Tailwind CSS v3+ con plugins de formularios y consultas de contenedor -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Configuración Personalizada de Tailwind CSS -->
   <script id="tailwind-config">
+    /**
+     * CONFIGURACIÓN TAILWIND CSS
+     * 
+     * darkMode: Soporte de modo oscuro mediante clase CSS
+     * theme.extend: Extensión de colores y tipografías por defecto
+     */
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          colors: { "primary": "#13a4ec", "background-light": "#f6f7f8", "background-dark": "#101c22" },
+          colors: { 
+            "primary": "#13a4ec", 
+            "background-light": "#f6f7f8", 
+            "background-dark": "#101c22" 
+          },
           fontFamily: { "display": ["Inter"] },
         },
       },
     }
   </script>
-  <title>Reserva tu Cita</title>
+  
+  <!-- Título de la página (visible en pestañas del navegador) -->
+  <title>Reprogramar Cita - Sistema Vision</title>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-[#333] dark:text-[#ccc]">
   <div class="flex min-h-screen flex-col">
+    <!-- ENCABEZADO: Navegación principal y logo -->
    <header class="border-b border-primary/20 dark:border-primary/10">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+        <!-- Logo y nombre de la aplicación -->
         <div class="flex items-center gap-4">
          <a href="Index.php">
           <button>
@@ -66,6 +106,7 @@ $userId = $_SESSION['user_id'];
         </a>
           <h2 class="text-xl font-bold text-gray-800 dark:text-white">Vision</h2>
         </div>
+        <!-- Navegación (visible en pantallas medianas y mayores) -->
         <nav class="hidden items-center gap-8 md:flex">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="Index.php"><button>Pagina Principal</button></a>
@@ -76,6 +117,7 @@ $userId = $_SESSION['user_id'];
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="mensaje.php"><button>Contactacto</button></a>
         </nav>
+        <!-- Perfil del usuario -->
         <div class="flex items-center gap-4">
           <a href="perfil.php">
               <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
@@ -88,26 +130,35 @@ $userId = $_SESSION['user_id'];
 
     <main class="flex-1">
       <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <!-- Título principal de la página -->
         <div class="mb-8 text-center">
           <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl">Reprograma tu cita</h1>
         </div>
 
+        <!-- Contenedor principal del formulario de edición -->
         <div class="rounded-xl border border-primary/20 bg-background-light dark:bg-background-dark p-4 sm:p-6 lg:p-8">
           <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-            
+            <!-- COLUMNA IZQUIERDA: Calendario -->
             <div class="space-y-4">
-               <div class="flex justify-between"><button id="prevMonth"><</button><p id="calendarMonthLabel"></p><button id="nextMonth">></button></div>
+               <!-- Controles del calendario (mes anterior/siguiente) -->
+               <div class="flex justify-between"><button id="prevMonth">&lt;</button><p id="calendarMonthLabel"></p><button id="nextMonth">&gt;</button></div>
+               <!-- Encabezados de los días de la semana -->
                <div class="grid grid-cols-7 text-center font-semibold text-gray-500 dark:text-gray-400"><div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div></div>
+               <!-- Grid donde se renderiza el calendario dinámicamente -->
                <div id="calendarGrid" class="grid grid-cols-7 text-center gap-2"></div>
             </div>
 
+            <!-- COLUMNA DERECHA: Formulario de edición de cita -->
             <div class="space-y-6">
+              <!-- Etiqueta de fecha seleccionada -->
               <h3 id="selectedDateLabel" class="text-xl font-bold text-gray-800 dark:text-white">Selecciona un día</h3>
               
+              <!-- Campo: Especialidad -->
               <div class="space-y-2">
                 <label for="therapyType" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Especialidad</label>
                 <select id="therapyType" class="mt-1 block w-full rounded-md border border-gray-200 bg-white py-2 px-3 text-sm shadow-sm focus:border-primary focus:ring-primary dark:bg-background-dark dark:border-slate-700 dark:text-gray-200">
                   <option value=""> Selecciona especialidad </option>
+                  <!-- Llenar opciones dinámicamente desde la base de datos -->
                   <?php foreach ($especialidades as $esp): ?>
                       <option value="<?php echo $esp['ID_Especialidad']; ?>">
                           <?php echo htmlspecialchars($esp['Nombre_Especialidad']); ?>
@@ -116,6 +167,7 @@ $userId = $_SESSION['user_id'];
                 </select>
               </div>
 
+              <!-- Campo: Psicólogo (se muestra cuando se selecciona una especialidad) -->
               <div id="divPsicologo" class="space-y-2 hidden transition-all duration-300">
                 <label for="comboPsicologo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Selecciona Psicólogo</label>
                 <select id="comboPsicologo" class="mt-1 block w-full rounded-md border border-gray-200 bg-white py-2 px-3 text-sm shadow-sm focus:border-primary focus:ring-primary dark:bg-background-dark dark:border-slate-700 dark:text-gray-200">
@@ -123,17 +175,23 @@ $userId = $_SESSION['user_id'];
                 </select>
               </div>
 
+              <!-- Slots de horarios disponibles (se generan dinámicamente) -->
               <div id="timeSlots" class="grid grid-cols-2 gap-4 sm:grid-cols-3"></div>
 
+              <!-- Alerta para mostrar mensajes de validación/error -->
               <div id="reservaAlert" class="hidden rounded p-3 text-sm mb-4"></div>
 
+              <!-- Formulario oculto que envía los datos de la cita editada -->
               <form id="formReservaEditar" method="post" action="Editar_Cita.php">
+                <!-- ID de la cita que se está editando -->
                 <input type="hidden" name="id_cita" id="id_cita" value="<?php echo htmlspecialchars($citaId); ?>">
+                <!-- Campos ocultos con la nueva información de la cita -->
                   <input type="hidden" name="fecha" id="inputFecha">
                   <input type="hidden" name="hora" id="inputHora">
                   <input type="hidden" name="tipo_servicio" id="inputTipoServicio">
                   <input type="hidden" name="id_psicologo" id="inputPsicologo">
                   
+                  <!-- Botón para confirmar la reprogramación -->
                   <button type="submit" id="confirmBtn" class="w-full rounded-lg bg-primary py-3 px-4 text-base font-bold text-white shadow-md transition-transform hover:scale-[1.02]">
                     Confirmar Nueva Cita
                   </button>
@@ -142,8 +200,11 @@ $userId = $_SESSION['user_id'];
           </div>
         </div>
       </div>
-<script src="Editar_cita_Calendario.js"></script>
+  </div>
+  <!-- Script JavaScript para manejar la lógica del calendario, horarios y edición de citas -->
+  <script src="Editar_cita_Calendario.js"></script>
 </body>
 </html>
 <?php
+// Fin del archivo View_Editar_Cita.php
 ?>
