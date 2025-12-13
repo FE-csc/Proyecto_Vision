@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ════════════════════════════════════════════════════════════════════════════════
  * FILE: Perfil.php
@@ -51,14 +52,20 @@ session_start();
  */
 
 if (empty($_SESSION['user_id'])) {
-    // Redirigir a login con parámetro de retorno (Perfil.php)
     header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
 
-// ──────────────────────────────────────────────────────────────────────────────
-// SECCIÓN 2: CARGA DE DATOS DEL PACIENTE
-// ──────────────────────────────────────────────────────────────────────────────
+// Asegurar que sólo usuarios con rol 'Paciente' (rol = 1) puedan acceder.
+// La condición anterior estaba mal escrita: `=== 2 || 3` no evalúa correctamente.
+if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 1) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+
+    // ──────────────────────────────────────────────────────────────────────────────
+    // SECCIÓN 2: CARGA DE DATOS DEL PACIENTE
+    // ──────────────────────────────────────────────────────────────────────────────
 /**
  * Obtener información del paciente desde base de datos
  * 
@@ -285,7 +292,7 @@ $jsData = [
          * Acceso: window.Auth.getUser() retorna estos datos
          */
         const usuarioSesion = <?php echo json_encode($jsData); ?>;
-        
+
         /**
          * ──────────────────────────────────────────────────────────────────────────────
          * SUBSECCIÓN 4.2: Objeto window.Auth (API de autenticación)
@@ -317,7 +324,7 @@ $jsData = [
              * PROPÓSITO: Proveer datos de usuario a JavaScript de forma consistente
              * Usado por Usuario_Dashboard.js para nombres, búsquedas, etc.
              */
-            getUser: function () {
+            getUser: function() {
                 return {
                     firstName: usuarioSesion.nombre,
                     lastName: usuarioSesion.apellido,
@@ -325,7 +332,7 @@ $jsData = [
                     idPaciente: usuarioSesion.idPaciente
                 };
             },
-            
+
             /**
              * logout(options): Cerrar sesión del usuario
              * 
@@ -340,7 +347,7 @@ $jsData = [
              * PROPÓSITO: Proveer método de logout para Usuario_Dashboard.js
              * Llamado cuando usuario hace click en "Cerrar sesión"
              */
-            logout: function (options) {
+            logout: function(options) {
                 window.location.href = 'logout.php';
             }
         };
@@ -396,8 +403,9 @@ $jsData = [
                     </div>
                     <!-- Nombre de marca -->
                     <h1 class="text-xl font-bold text-slate-900 dark:text-white">Vision</h1>
+
                 </div>
-                
+
                 <!-- Navegación principal (hidden en mobile <md) -->
                 <nav class="hidden md:flex items-center gap-8">
                     <!-- Página principal -->
@@ -413,7 +421,7 @@ $jsData = [
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
                         href="mensaje.php">Contacto</a>
                 </nav>
-                
+
                 <!-- Avatar del usuario (derecha) -->
                 <div class="flex items-center">
                     <!-- Avatar placeholder (background-image: url(...)) -->
@@ -480,6 +488,9 @@ $jsData = [
                     <p class="text-sm text-gray-500 dark:text-gray-400">
                         <?php echo htmlspecialchars($_SESSION['user_email']); ?>
                     </p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                    </p>
+
                 </div>
             </div>
 
@@ -636,7 +647,7 @@ $jsData = [
 
                             <!-- Divisor visual -->
                             <div class="md:w-px bg-slate-200 dark:bg-slate-800"></div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -1105,11 +1116,18 @@ $jsData = [
                     const fecha = new Date(data.Fecha_Cita);
 
                     // ─ Formatear fecha a español (ej: "15 de diciembre de 2024")
-                    const opciones = { day: "numeric", month: "long", year: "numeric" };
+                    const opciones = {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    };
                     const fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
-                    
+
                     // ─ Formatear hora a español (ej: "14:30")
-                    const horaFormateada = fecha.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+                    const horaFormateada = fecha.toLocaleTimeString("es-ES", {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    });
 
                     // ─ Renderizar en elementos HTML
                     // #fecha: Mostrar fecha formateada
