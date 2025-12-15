@@ -165,7 +165,7 @@ $Loggeado = isset($_SESSION['user_id']);
                     </a>
                     <?php else: ?>
                     <!-- Usuario autenticado: Avatar con enlace a perfil -->
-                    <a href="perfil.php">
+                    <a href="Perfil.php">
                         <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
                             style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
                         </div>

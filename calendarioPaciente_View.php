@@ -359,11 +359,11 @@ if (!$idPaciente) {
         
         /**
          * PERFIL DE USUARIO
-         * Icono de usuario que enlaza a perfil.php
+         * Icono de usuario que enlaza a Perfil.php
          * Imagen de fondo (avatar)
          */
         <div class="flex items-center gap-4">
-          <a href="perfil.php">
+          <a href="Perfil.php">
               <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
                 style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
               </div>
