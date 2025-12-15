@@ -172,7 +172,7 @@ if ($result = $mysqli->query($query)) {
 
         <!-- Sección: Perfil de Usuario -->
         <div class="flex items-center gap-4">
-          <a href="perfil.php" title="Ver perfil de usuario" aria-label="Acceder a perfil">
+          <a href="Perfil.php" title="Ver perfil de usuario" aria-label="Acceder a perfil">
             <!-- Avatar del usuario (icono por defecto) -->
             <div
               class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/30 hover:border-primary transition-colors"

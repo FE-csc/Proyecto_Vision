@@ -124,7 +124,7 @@ $userId = $_SESSION['user_id'];
         </nav>
         <!-- Perfil del usuario -->
         <div class="flex items-center gap-4">
-          <a href="perfil.php">
+          <a href="Perfil.php">
               <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
                 style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
               </div>
