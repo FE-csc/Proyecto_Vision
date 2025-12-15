@@ -70,27 +70,14 @@ if (!isset($_SESSION['user_id'])) {
  */
 $especialidades = [];
 
-/**
- * Consulta a Base de Datos
- * 
- * SELECT: Obtiene ID y nombre de todas las especialidades
- * Tabla: especialidades
- * Orden: Por defecto (orden de inserción en BD)
- * 
- * @var mysqli_result $result Resultado de la consulta
- */
+
 $query = "SELECT ID_Especialidad, Nombre_Especialidad FROM especialidades";
 if ($result = $mysqli->query($query)) {
-    /**
-     * Iteración de Resultados
-     * 
-     * Procesa cada fila retornada y la almacena en el array $especialidades
-     * para su posterior uso en el formulario HTML
-     */
+    
     while ($row = $result->fetch_assoc()) {
         $especialidades[] = $row;
     }
-    // Nota: En producción, verificar si $result->num_rows > 0 para validar
+    
 }
 ?>
 <!DOCTYPE html>
