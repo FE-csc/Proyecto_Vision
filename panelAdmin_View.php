@@ -105,6 +105,12 @@ if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 3) {
             /* FILL: 0 (contorno), wght: 400 (peso normal), GRAD: 0, opsz: 24 (tamaño 24px) */
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        .acciones-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 8px !important;
+            justify-items: end !important;
+        }
     </style>
 </head>
 
