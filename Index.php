@@ -1,6 +1,6 @@
 <?php
 // ════════════════════════════════════════════════════════════════════════════════
-// FILE: Index.php
+// FILE: index.php
 // ════════════════════════════════════════════════════════════════════════════════
 // DESCRIPCIÓN: Landing page principal (homepage) del sistema Visión
 // Página de bienvenida pública para todos los visitantes del sitio
@@ -136,8 +136,8 @@ $Loggeado = isset($_SESSION['user_id']);
                     
                     <!-- LOGO Y NOMBRE DE EMPRESA -->
                     <div class="flex items-center gap-3">
-                        <!-- Logo clicable que redirecciona a Index.php (home) -->
-                        <a href="Index.php">
+                        <!-- Logo clicable que redirecciona a index.php (home) -->
+                        <a href="index.php">
                             <button>
                                 <div class="w-8 h-8 text-primary">
                                     <!-- SVG con icono estilizado de visión (mitad de círculo) -->

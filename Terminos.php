@@ -30,7 +30,7 @@
  * 
  * DEPENDENCIAS:
  * - auth.js: Manejo de sesión en cliente (verificación adicional)
- * - Index.php: Página principal
+ * - index.php: Página principal
  * - Servicios.php: Catálogo de servicios
  * - Nosotros.php: Información de la empresa
  * - mensaje.php: Formulario de contacto
@@ -144,7 +144,7 @@ $Loggeado = isset($_SESSION['user_id']);
                     
                     <!-- Navegación principal: Visible en pantallas medias y superiores -->
                     <nav class="hidden md:flex items-center gap-8">
-                        <a class="text-sm font-medium hover:text-primary transition-colors" href="Index.php">Página
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="index.php">Página
                             principal</a>
                         <a class="text-sm font-medium hover:text-primary transition-colors"
                             href="Servicios.php">Servicios</a>

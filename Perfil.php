@@ -375,7 +375,7 @@ $jsData = [
      * - Responsive: Logo visible siempre, nav escondida en <md (mobile)
      * 
      * ENLACES:
-     * - Index.php: Página de inicio
+     * - index.php: Página de inicio
      * - Servicios.php: Información de servicios
      * - Nosotros.php: Información sobre clínica
      * - mensaje.php: Formulario de contacto
@@ -410,7 +410,7 @@ $jsData = [
                 <nav class="hidden md:flex items-center gap-8">
                     <!-- Página principal -->
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                        href="Index.php">Página principal</a>
+                        href="index.php">Página principal</a>
                     <!-- Servicios -->
                     <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
                         href="Servicios.php">Servicios</a>

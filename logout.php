@@ -7,7 +7,7 @@
 // FUNCIONALIDAD PRINCIPAL: Limpieza de sesión + Redirección
 // MÉTODOS SOPORTADOS: GET/POST (típicamente GET desde enlace de logout)
 // DEPENDENCIAS: session (PHP built-in)
-// RESULTADO: Destrucción de variables de sesión + Redirección a Index.php
+// RESULTADO: Destrucción de variables de sesión + Redirección a index.php
 // ROLES AUTORIZADOS: Cualquier usuario autenticado
 // ════════════════════════════════════════════════════════════════════════════════
 
@@ -43,12 +43,12 @@ session_destroy();
 // ──────────────────────────────────────────────────────────────────────────────
 // SECCIÓN 4: REDIRECCIÓN A PÁGINA PRINCIPAL
 // ──────────────────────────────────────────────────────────────────────────────
-// header('Location: Index.php') envía una redirección HTTP 302 (Found)
-// Al usuario se le redirige automáticamente a la página de inicio (Index.php)
+// header('Location: index.php') envía una redirección HTTP 302 (Found)
+// Al usuario se le redirige automáticamente a la página de inicio (index.php)
 // Esta es la landing page pública que cualquier visitante puede ver
 // - Si no estaba autenticado: sigue viendo la página normal
 // - Si estaba autenticado: ahora sin sesión, el botón de login reaparece
-header('Location: Index.php');
+header('Location: index.php');
 
 // ──────────────────────────────────────────────────────────────────────────────
 // SECCIÓN 5: FINALIZACIÓN DEL SCRIPT
