@@ -52,7 +52,32 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
  * Cargar autoloader de Composer
  * Incluye Dompdf y sus dependencias
  */
-require_once __DIR__ . '/vendor/autoload.php';
+$composerAutoload = __DIR__ . '/vendor/autoload.php';
+if (file_exists($composerAutoload)) {
+    require_once $composerAutoload;
+} else {
+    http_response_code(500);
+    echo 'Las dependencias no están instaladas. Ejecute "composer install" en el directorio del proyecto para instalarlas.';
+    exit;
+}
+
+/**
+ * Algunas instalaciones en hosting compartido no tienen Composer configurado
+ * correctamente. Para evitar el error "Class \"Dompdf\Options\" not found",
+ * intentamos cargar directamente el autoloader de Dompdf si la clase aún no
+ * existe. Si no está disponible, devolvemos un error claro al cliente en lugar
+ * de un fatal error.
+ */
+if (!class_exists('Dompdf\\Options')) {
+    $dompdfAutoload = __DIR__ . '/vendor/dompdf/dompdf/autoload.inc.php';
+    if (file_exists($dompdfAutoload)) {
+        require_once $dompdfAutoload;
+    } else {
+        http_response_code(500);
+        echo 'Dependencia Dompdf faltante. Ejecute "composer install" en el directorio del proyecto para instalarla.';
+        exit;
+    }
+}
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
