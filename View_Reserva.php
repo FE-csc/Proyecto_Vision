@@ -170,7 +170,7 @@ if ($result = $mysqli->query($query)) {
             href="mensaje.php"><button>Contacto</button></a>
         </nav>
 
-        <!-- Sección: Perfil de Usuario -->
+        <!-- Sección: Perfil de Ussuario -->
         <div class="flex items-center gap-4">
           <a href="Perfil.php" title="Ver perfil de usuario" aria-label="Acceder a perfil">
             <!-- Avatar del usuario (icono por defecto) -->
