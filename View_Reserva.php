@@ -67,36 +67,16 @@ if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 1) {
 // FASE 2: CARGA DE DATOS - ESPECIALIDADES
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * Array para almacenar especialidades disponibles
- * Estructura: [
- *   ['ID_Especialidad' => 1, 'Nombre_Especialidad' => 'Psicología Clínica'],
- *   ['ID_Especialidad' => 2, 'Nombre_Especialidad' => 'Psicología Infantil']
- * ]
- */
+
 $especialidades = [];
 
 
 $query = "SELECT ID_Especialidad, Nombre_Especialidad FROM especialidades";
 if ($result = $mysqli->query($query)) {
-<<<<<<< HEAD
-    
-    while ($row = $result->fetch_assoc()) {
-        $especialidades[] = $row;
-    }
-    
-=======
-  /**
-   * Iteración de Resultados
-   * 
-   * Procesa cada fila retornada y la almacena en el array $especialidades
-   * para su posterior uso en el formulario HTML
-   */
+
   while ($row = $result->fetch_assoc()) {
     $especialidades[] = $row;
   }
-  // Nota: En producción, verificar si $result->num_rows > 0 para validar
->>>>>>> 8020e7315f5613bb2863cba172d89b8179971ca8
 }
 ?>
 <!DOCTYPE html>
@@ -114,7 +94,9 @@ if ($result = $mysqli->query($query)) {
   <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
 
   <!-- Importación de tipografías: Inter y Noto Sans (pesos: 400, 500, 700, 900) -->
-  <link as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40400%3B500%3B700%3B900&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet" />
+  <link as="style"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Inter%3Awght%40400%3B500%3B700%3B900&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    onload="this.rel='stylesheet'" rel="stylesheet" />
 
   <!-- CDN Tailwind CSS v3+ con plugins de formularios y consultas de contenedor -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -160,7 +142,7 @@ if ($result = $mysqli->query($query)) {
       <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
         <!-- Sección: Logo y Branding -->
         <div class="flex items-center gap-4">
-          <a href="Index.php" title="Ir a página principal">
+          <a href="index.php" title="Ir a página principal">
             <button aria-label="Volver al inicio">
               <!-- Logo corporativo de Vision -->
               <div class="w-8 h-8 text-primary transition-transform hover:scale-110">
@@ -179,7 +161,7 @@ if ($result = $mysqli->query($query)) {
         <!-- Sección: Menú de Navegación (visible en pantallas medianas en adelante) -->
         <nav class="hidden items-center gap-8 md:flex">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
-            href="Index.php"><button>Página Principal</button></a>
+            href="index.php"><button>Página Principal</button></a>
           <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary transition-colors"
             href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors"
@@ -192,7 +174,8 @@ if ($result = $mysqli->query($query)) {
         <div class="flex items-center gap-4">
           <a href="perfil.php" title="Ver perfil de usuario" aria-label="Acceder a perfil">
             <!-- Avatar del usuario (icono por defecto) -->
-            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/30 hover:border-primary transition-colors"
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/30 hover:border-primary transition-colors"
               style='background-image: url("https://cdn-icons-png.flaticon.com/512/11753/11753627.png");'>
             </div>
           </a>
@@ -303,9 +286,7 @@ if ($result = $mysqli->query($query)) {
                 <label for="inputMotivo" class="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Motivo de la Consulta (Opcional)
                 </label>
-                <textarea id="inputMotivo"
-                  name="motivo"
-                  rows="3"
+                <textarea id="inputMotivo" name="motivo" rows="3"
                   placeholder="Describe brevemente el motivo de tu consulta..."
                   class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 dark:bg-slate-700 dark:border-slate-600 dark:text-gray-200"></textarea>
               </div>
@@ -322,8 +303,7 @@ if ($result = $mysqli->query($query)) {
                 <input type="hidden" name="id_psicologo" id="inputPsicologo">
 
                 <!-- Botón de Confirmación -->
-                <button type="submit"
-                  id="confirmBtn"
+                <button type="submit" id="confirmBtn"
                   class="w-full rounded-lg bg-primary py-3 px-4 text-base font-bold text-white shadow-md transition-all hover:bg-blue-700 hover:shadow-lg active:scale-95">
                   Confirmar Reserva de Cita
                 </button>

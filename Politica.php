@@ -181,7 +181,7 @@ $Loggeado = isset($_SESSION['user_id']);
          * - Responsive: Nav hidden en <md (mobile)
          * 
          * NAVEGACIÓN:
-         * - Index.php: Página principal
+         * - index.php: Página principal
          * - Servicios.php: Información de servicios
          * - Nosotros.php: Sobre nosotros
          * - mensaje.php: Contacto
@@ -221,7 +221,7 @@ $Loggeado = isset($_SESSION['user_id']);
                     <nav class="hidden md:flex items-center gap-8">
                         <!-- Página principal -->
                         <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
-                            href="Index.php">Página principal</a>
+                            href="index.php">Página principal</a>
                         <!-- Servicios -->
                         <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary transition-colors"
                             href="Servicios.php">Servicios</a>
@@ -464,7 +464,7 @@ $Loggeado = isset($_SESSION['user_id']);
                  * - Debe actualizarse cuando se modifique la política
                 -->
                 <div class="mt-12 text-center">
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Última actualización: 26 de octubre de 2024
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Última actualización: 26 de octubre de 2025.
                     </p>
                 </div>
             </div>

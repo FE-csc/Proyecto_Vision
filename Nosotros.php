@@ -107,8 +107,8 @@ $Loggeado = isset($_SESSION['user_id']);
              ────────────────────────────────────────────────────────────────────────── -->
         <!-- Logo y título de la marca -->
         <div class="flex items-center gap-3">
-          <!-- Botón logo enlazado a Index.php (página principal) -->
-          <a href="Index.php">
+          <!-- Botón logo enlazado a index.php (página principal) -->
+          <a href="index.php">
             <button>
               <!-- Logo SVG: Círculo con símbolo de Vision en azul primario -->
               <div class="w-8 h-8 text-primary">
@@ -130,7 +130,7 @@ $Loggeado = isset($_SESSION['user_id']);
         <nav class="hidden md:flex items-center gap-8">
           <!-- Enlaces de navegación a secciones principales -->
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Index.php"><button>Pagina Principal</button></a>
+            href="index.php"><button>Pagina Principal</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"

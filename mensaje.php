@@ -96,7 +96,7 @@ $Loggeado = isset($_SESSION['user_id']);
       <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-6 py-4">
         <!-- Logo y branding -->
         <div class="flex items-center gap-3">
-          <a href="Index.php">
+          <a href="index.php">
             <button>
               <div class="w-8 h-8 text-primary">
                 <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@ $Loggeado = isset($_SESSION['user_id']);
         <!-- Navegación principal (visible en desktop) -->
         <nav class="hidden md:flex items-center gap-8">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Index.php"><button>Pagina Principal</button></a>
+            href="index.php"><button>Pagina Principal</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
             href="Nosotros.php"><button>Sobre nosotros</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"

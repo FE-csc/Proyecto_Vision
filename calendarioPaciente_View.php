@@ -320,10 +320,10 @@ if (!$idPaciente) {
         
         /**
          * LOGO Y TÍTULO
-         * Botón con SVG que regresa a la página principal (Index.php)
+         * Botón con SVG que regresa a la página principal (index.php)
          */
         <div class="flex items-center gap-4">
-         <a href="Index.php">
+         <a href="index.php">
           <button>
             <div class="w-8 h-8 text-primary">
               <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -348,7 +348,7 @@ if (!$idPaciente) {
          */
         <nav class="hidden items-center gap-8 md:flex">
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
-            href="Index.php"><button>Pagina Principal</button></a>
+            href="index.php"><button>Pagina Principal</button></a>
             <a class="text-sm font-medium text-slate-700 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
             href="Servicios.php"><button>Servicios</button></a>
           <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary"
