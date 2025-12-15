@@ -1,5 +1,5 @@
 (function () {
-  
+
     const calendarGrid = document.getElementById('calendarGrid');
     const monthLabel = document.getElementById('calendarMonthLabel');
     const prevBtn = document.getElementById('prevMonth');
@@ -23,7 +23,7 @@
     const inputMotivo = document.getElementById('inputMotivo');
     const inputDuracion = document.getElementById('inputDuracion');
 
-    const timeOptions = ['09:00', '10:00', '11:00', '12:00','13:00','14:00', '15:00', '16:00','17:00','18:00'];
+    const timeOptions = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
 
     const baseDayClass = 'h-12 rounded-xl border border-transparent bg-white dark:bg-slate-900 shadow-sm text-sm font-semibold text-gray-700 dark:text-gray-200 transition transform hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/60';
     const selectedDayClasses = ['bg-primary', 'text-white', 'border-primary', 'shadow-lg'];
@@ -31,12 +31,13 @@
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const todayKey = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
-
-    let viewDate = new Date();
+let viewDate = new Date();
     let selectedDate = null;
     let selectedTime = null;
     let selectedDayBtn = null;
+    let horasOcupadas = [];
 
+   
     therapyTypeSelect.addEventListener('change', async function () {
         const idEspecialidad = this.value;
         inputTipoServicio.value = idEspecialidad;
@@ -77,8 +78,10 @@
 
     comboPsicologo.addEventListener('change', function () {
         inputPsicologo.value = this.value;
+        cargarHorasOcupadas();
     });
 
+    
     function sameDay(a, b) {
         return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
     }
@@ -153,7 +156,7 @@
         inputFecha.value = `${year}-${month}-${day}`;
         selectedDateLabel.textContent = `Selecciona un horario para el ${dayName} ${day}/${month}/${year}`;
 
-        renderTimeSlots();
+        cargarHorasOcupadas();
     }
 
     function renderTimeSlots() {
@@ -177,6 +180,12 @@
             const span = document.createElement('span');
             span.textContent = time;
 
+            const isTaken = horasOcupadas.includes(time);
+            if (isTaken) {
+                input.disabled = true;
+                label.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
             if (selectedTime === time) {
                 input.checked = true;
                 label.classList.add('border-primary', 'bg-primary/10', 'shadow-md');
@@ -197,10 +206,29 @@
         });
     }
 
+    async function cargarHorasOcupadas() {
+        horasOcupadas = [];
+
+        if (!inputPsicologo.value || !inputFecha.value) {
+            renderTimeSlots();
+            return;
+        }
+
+        try {
+            const res = await fetch(`Horas_Ocupadas.php?id_psicologo=${encodeURIComponent(inputPsicologo.value)}&fecha=${encodeURIComponent(inputFecha.value)}`);
+            const data = await res.json();
+            if (data.success && Array.isArray(data.horas)) {
+                horasOcupadas = data.horas;
+            }
+        } catch (err) {
+            console.error('Error cargando horas ocupadas', err);
+        }
+        renderTimeSlots();
+    }
+
     renderMonth();
     renderTimeSlots();
 
-    
     formReserva.addEventListener('submit', async (e) => {
         e.preventDefault();
 

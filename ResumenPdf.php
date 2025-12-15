@@ -1,7 +1,50 @@
 <?php
+/**
+ * ResumenPdf.php
+ * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+ * DESCRIPCIÓN: Interfaz para generar reportes de sesiones en formato PDF
+ * 
+ * FUNCIONALIDAD PRINCIPAL:
+ * - Formulario para capturar detalles de la sesión clínica
+ * - Información del paciente (nombre, edad, cédula)
+ * - Fecha y hora de la sesión
+ * - Campo de notas clínicas extenso para observaciones
+ * - Generación de PDF enviando datos a generate_pdf.php
+ * 
+ * CAMPOS DE ENTRADA:
+ * - patient_name: Nombre completo del paciente
+ * - patient_age: Edad en años (0-150)
+ * - patient_id: Número de cédula de identidad
+ * - session_date: Fecha de la sesión (formato date)
+ * - session_time: Hora de la sesión (formato time)
+ * - session_notes: Notas y observaciones clínicas detalladas
+ * 
+ * VALIDACIÓN:
+ * - Requiere autenticación de usuario ($SESSION['user_id'])
+ * - Redirige a login.html si no está autenticado
+ * - Redirección preserva página actual en parámetro 'redirect'
+ * 
+ * PROCESAMIENTO:
+ * - Formulario POST a generate_pdf.php
+ * - Abre PDF en nueva ventana (target="_blank")
+ * 
+ * DEPENDENCIAS:
+ * - generate_pdf.php: Procesa datos y genera PDF
+ * - Tailwind CSS: Estilos responsive
+ * - Material Symbols: Iconografía
+ * - JavaScript: Auto-población de fecha/hora actual
+ * 
+ * ACCESO: Psicólogos autenticados únicamente
+ * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+ */
 session_start();
 
 if (empty($_SESSION['user_id'])) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+
+if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 2) {
     header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
@@ -103,13 +146,16 @@ if (empty($_SESSION['user_id'])) {
                                 <h1 class="text-4xl font-black leading-tight tracking-[-0.033em]">Informe de sesión</h1>
                             </div>
                         </section>
-                        <!-- Session Details Form -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN 1: DETALLES DEL PACIENTE Y SESIÓN -->
+                        <!-- Captura información básica del paciente y parámetros de la sesión -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
                         <section
                             class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 shadow-sm">
                             <h2 class="text-2xl font-bold leading-tight tracking-[-0.015em] pb-6">Detalles del paciente
                                 y sesión</h2>
                             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                                <!-- Patient Name -->
+                                <!-- Campo: Nombre del paciente (requerido, ocupa 2 columnas) -->
                                 <div class="flex flex-col gap-2 md:col-span-2">
                                     <label class="text-sm font-medium" for="patient-name">Nombre del paciente</label>
                                     <input name="patient_name"
@@ -117,21 +163,22 @@ if (empty($_SESSION['user_id'])) {
                                         id="patient-name" type="text"
                                         placeholder="Ingrese el nombre completo del paciente" />
                                 </div>
-                                <!-- Patient Age -->
+                                <!-- Campo: Edad del paciente en años (validación 0-150) -->
                                 <div class="flex flex-col gap-2">
                                     <label class="text-sm font-medium" for="patient-age">Edad</label>
                                     <input name="patient_age"
                                         class="w-full rounded-md border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-3 text-sm focus:border-primary focus:ring-primary"
                                         id="patient-age" type="number" placeholder="Años" min="0" max="150" />
                                 </div>
-                                <!-- Patient ID -->
+                                <!-- Campo: Cédula de identidad del paciente (ocupa 2 columnas) -->
                                 <div class="flex flex-col gap-2 md:col-span-2">
                                     <label class="text-sm font-medium" for="patient-id">Cédula de identidad</label>
                                     <input name="patient_id"
                                         class="w-full rounded-md border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark py-2 pl-3 text-sm focus:border-primary focus:ring-primary"
                                         id="patient-id" type="text" placeholder="Ingrese el número de cédula" />
                                 </div>
-                                <!-- Session Date -->
+                                <!-- Campo: Fecha de la sesión (input date con calendar icon) -->
+                                <!-- Auto-poblado con fecha actual mediante JavaScript -->
                                 <div class="flex flex-col gap-2">
                                     <label class="text-sm font-medium" for="session-date">Fecha de la sesión</label>
                                     <div class="relative">
@@ -145,7 +192,8 @@ if (empty($_SESSION['user_id'])) {
                                     </div>
                                     <p class="text-xs text-slate-500 mt-1" id="session-date-display"></p>
                                 </div>
-                                <!-- Session Time -->
+                                <!-- Campo: Hora de la sesión (input time con schedule icon) -->
+                                <!-- Auto-poblado con hora actual mediante JavaScript -->
                                 <div class="flex flex-col gap-2">
                                     <label class="text-sm font-medium" for="session-time">Hora de la sesión</label>
                                     <div class="relative">
@@ -162,7 +210,10 @@ if (empty($_SESSION['user_id'])) {
                                 <!-- Keywords/Tags eliminado -->
                             </div>
                         </section>
-                        <!-- Session Notes Text Editor -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN 2: NOTAS CLÍNICAS Y OBSERVACIONES -->
+                        <!-- Editor de textarea para documentación detallada de la sesión -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
                         <section
                             class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark shadow-sm">
                             <h2 class="p-6 pb-2 text-2xl font-bold leading-tight tracking-[-0.015em]">Notas clínicas y
@@ -176,7 +227,11 @@ if (empty($_SESSION['user_id'])) {
                                     rows="12"></textarea>
                             </div>
                         </section>
-                        <!-- Action Buttons -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
+                        <!-- SECCIÓN 3: BOTONES DE ACCIÓN -->
+                        <!-- Cancelar: Vuelve a la página anterior del navegador -->
+                        <!-- Generar PDF: Envía formulario a generate_pdf.php en nueva ventana -->
+                        <!-- ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
                     </div>
                     <section class="flex flex-col items-center gap-4 sm:flex-row sm:justify-end">
                         <button type="button" onclick="history.back()"
@@ -191,6 +246,23 @@ if (empty($_SESSION['user_id'])) {
     </div>
     </div>
     <script>
+            /**
+             * IIFE: Inicialización de campos de fecha y hora
+             * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+             * Funcionalidad:
+             * - Auto-pobla el campo de fecha con la fecha actual si está vacío
+             * - Auto-pobla el campo de hora con la hora actual si está vacío
+             * - Muestra fecha formateada en español en elemento de display
+             * - Manejo seguro de errores para compatibilidad
+             * 
+             * Variables locales:
+             * - pad(): Función para agregar cero a números de un dígito
+             * - dateInput: Referencia al input#session-date
+             * - timeInput: Referencia al input#session-time
+             * - display: Referencia al párrafo de display#session-date-display
+             * - now: Objeto Date con fecha/hora actual
+             * ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+             */
             (function () {
                 function pad(n) { return n < 10 ? ('0' + n) : String(n) }
                 var dateInput = document.getElementById('session-date');
@@ -198,12 +270,15 @@ if (empty($_SESSION['user_id'])) {
                 var display = document.getElementById('session-date-display');
                 var now = new Date();
                 try {
+                    // Auto-poblar fecha actual en formato ISO (YYYY-MM-DD)
                     if (dateInput && !dateInput.value) {
                         dateInput.value = now.toISOString().slice(0, 10);
                     }
+                    // Auto-poblar hora actual en formato 24h (HH:mm)
                     if (timeInput && !timeInput.value) {
                         timeInput.value = pad(now.getHours()) + ':' + pad(now.getMinutes());
                     }
+                    // Mostrar fecha en formato legible en español
                     if (display) {
                         display.textContent = now.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
                     }
