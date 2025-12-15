@@ -14,6 +14,11 @@ if (!$ID_Psicologo) {
     header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
+
+if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 2) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
 ?>
 
 <!DOCTYPE html>

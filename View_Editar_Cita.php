@@ -18,6 +18,11 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 1) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
+
 // Obtener todas las especialidades disponibles de la base de datos
 $especialidades = [];
 

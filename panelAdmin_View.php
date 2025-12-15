@@ -24,8 +24,13 @@ if (empty($_SESSION['user_id'])) {
     header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
     exit;
 }
-// ──────────────────────────────────────────────────────────────────────────────
+
+if (!isset($_SESSION['user_role']) || (int) $_SESSION['user_role'] !== 3) {
+    header('Location: login.html?redirect=' . urlencode(basename($_SERVER['PHP_SELF'])));
+    exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
