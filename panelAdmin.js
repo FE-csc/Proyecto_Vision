@@ -108,14 +108,12 @@ function cargarUsuarios(){
             <td class="p-4">${rolLabel(u.ID_Role)}</td>
             <!-- Columna 8: Botones de acciones -->
             <td class="p-4 text-right">
-              <!-- Botón cambiar a Doctor (rol=2) -->
-              <button onclick="cambiarRol(${u.ID_Usuario},2)" class="px-2 py-1 bg-blue-500 text-white rounded">Doctor</button>
-              <!-- Botón cambiar a Paciente (rol=1) -->
-              <button onclick="cambiarRol(${u.ID_Usuario},1)" class="px-2 py-1 bg-green-500 text-white rounded">Paciente</button>
-              <!-- Botón cambiar a Administrador (rol=3) -->
-              <button onclick="cambiarRol(${u.ID_Usuario},3)" class="px-2 py-1 bg-purple-500 text-white rounded">Admin</button>
-              <!-- Botón eliminar usuario permanentemente -->
-              <button onclick="eliminarUsuario(${u.ID_Usuario})" class="px-2 py-1 bg-red-500 text-white rounded">Eliminar</button>
+              <div class="acciones-grid">
+                <button onclick="cambiarRol(${u.ID_Usuario},2)" class="px-2 py-1 bg-blue-500 text-white rounded">Doctor</button>
+                <button onclick="cambiarRol(${u.ID_Usuario},1)" class="px-2 py-1 bg-green-500 text-white rounded">Paciente</button>
+                <button onclick="cambiarRol(${u.ID_Usuario},3)" class="px-2 py-1 bg-purple-500 text-white rounded">Admin</button>
+                <button onclick="eliminarUsuario(${u.ID_Usuario})" class="px-2 py-1 bg-red-500 text-white rounded">Eliminar</button>
+              </div>
             </td>
           </tr>
         `);
