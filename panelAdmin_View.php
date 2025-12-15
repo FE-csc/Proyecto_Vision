@@ -56,6 +56,12 @@ if (empty($_SESSION['user_id'])) {
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+        .acciones-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 8px !important;
+            justify-items: end !important;
+        }
     </style>
 </head>
 
